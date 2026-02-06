@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="robots" content="noindex">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>!!! WISEMAN RECORDS !!!</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            /* Creates a retro "grid" floor effect */
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.2) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: lime;
+            font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* The Main Container */
+        .wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            border-left: 5px solid magenta;
+            border-right: 5px solid magenta;
+            background: rgba(0, 0, 0, 0.8);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Header Madness */
+        h1 {
+            font-size: 3rem;
+            color: yellow;
+            text-shadow: 4px 4px red;
+            margin-top: 20px;
+            text-transform: uppercase;
+            animation: pulse 0.5s infinite alternate;
+        }
+
+        /* The scrolling marquee at the top */
+        .marquee-container {
+            background: blue;
+            color: white;
+            font-weight: bold;
+            padding: 5px;
+            border-top: 2px solid white;
+            border-bottom: 2px solid white;
+            font-family: monospace;
+            font-size: 1.2rem;
+        }
+
+        /* Album Art with "Spin" effect on hover */
+        .album-art {
+            border: 10px ridge gold;
+            width: 90%;
+            max-width: 500px;
+            margin: 20px auto;
+            display: block;
+            transition: transform 1s;
+        }
+
+        .album-art:hover {
+            transform: rotate(360deg);
+        }
+
+        /* Flashing Text Class */
+        .blink {
+            animation: blinker 0.3s linear infinite;
+            color: magenta;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* Buttons that look like Windows 95 buttons */
+        .button-zone {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .retro-btn {
+            background: silver;
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px 20px;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: monospace;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .retro-btn:active {
+            border-top: 2px solid black;
+            border-left: 2px solid black;
+            border-right: 2px solid white;
+            border-bottom: 2px solid white;
+        }
+
+        /* Fake "Visitor Counter" */
+        .counter {
+            margin-top: 40px;
+            font-family: monospace;
+            background: black;
+            border: 1px solid red;
+            color: red;
+            display: inline-block;
+            padding: 5px 10px;
+            letter-spacing: 5px;
+        }
+
+        /* Animations */
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.05);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="marquee-container">
+        <marquee scrollamount="12">
+            *** WELCOME TO WISEMAN RECORDS *** HOME OF CHONK *** HAMLIN LAKE FUNK *** WARNING: HEAVY BASS *** DO NOT
+            PLAY NEAR
+            OPEN FLAME ***
+        </marquee>
+    </div>
+
+    <div class="wrapper">
+        <br>
+        <h1>WISEMAN RECORDS</h1>
+
+        <p class="blink">!!! COMING SOON !!!</p>
+
+        <img src="cover.jpg" alt="Chonk Album Art" class="album-art">
+
+        <h2 style="color: cyan; text-decoration: underline;">THE SUMMIT LP IS COMING</h2>
+
+        <p style="font-size: 1.2rem;">
+            FEATURING THE HITS:<br>
+            "BASS BUSINESS"<br>
+            "JEBAVY JITTERS (THE FINAL MILE)"<br>
+            AND<br>
+            "THE LIGHTS WENT OUT ON SMALLIE ROAD"
+        </p>
+
+        <div class="button-zone">
+            <a href="https://soundcloud.com/pbuzzell/sets/the-summit-lp/s-rDdIEH4dXLo?si=7629b906677044d29170bcc7af2ecf54"
+                class="retro-btn" target="_blank">Stream
+                Now</a>
+            <!--<a href="mailto:info@wisemanrecords.com" class="retro-btn">Email Us</a>-->
+        </div>
+
+        <br><br>
+
+        <div>
+            <p>You are visitor number:</p>
+            <div class="counter">0 0 0 0 0 7</div>
+        </div>
+
+        <br><br>
+        <p style="font-size: 0.8rem; color: gray;">
+            (c) 2026 WISEMAN RECORDS<br>
+        </p>
+    </div>
+
+</body>
+
+</html>
