@@ -1,0 +1,20 @@
+/* TEAM */
+    Label: Wiseman Records
+    Location: Hamlin Lake
+
+/* ALBUM */
+    Title: The Summit LP
+    Status: OUT NOW
+    Hits:
+        - Bass Business
+        - Jebavy Jitters (The Final Mile)
+        - The Lights Went Out On Smallie Road
+
+/* THANKS */
+    To everyone bringing the heavy bass.
+    Do not play near open flame.
+
+/* SITE */
+    Standards: HTML5, CSS3
+    Components: Marquee, Comic Sans, Win95 buttons
+    Software: Hand-crafted
