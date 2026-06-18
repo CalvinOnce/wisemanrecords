@@ -292,6 +292,15 @@
         </p>
     </div>
 
+    <script>
+        document.addEventListener('play', function (e) {
+            const players = document.querySelectorAll('audio');
+            for (const p of players) {
+                if (p !== e.target) p.pause();
+            }
+        }, true);
+    </script>
+
 </body>
 
 </html>
