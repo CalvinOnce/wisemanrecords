@@ -299,6 +299,14 @@
                 if (p !== e.target) p.pause();
             }
         }, true);
+
+        document.addEventListener('ended', function (e) {
+            const players = Array.from(document.querySelectorAll('audio'));
+            const next = players[players.indexOf(e.target) + 1];
+            if (!next) return;
+            next.play().catch(() => { });
+            next.closest('.track')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, true);
     </script>
 
 </body>
