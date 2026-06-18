@@ -30,7 +30,7 @@
             border-right: 5px solid magenta;
             background: rgba(0, 0, 0, 0.8);
             min-height: 100vh;
-            padding-bottom: 50px;
+            padding-bottom: 140px;
         }
 
         h1 {
@@ -95,6 +95,7 @@
             margin: 25px auto;
             padding: 15px;
             max-width: 90%;
+            transition: box-shadow 0.2s, border-color 0.2s;
         }
 
         .track h3 {
@@ -117,9 +118,51 @@
             margin-right: 6px;
         }
 
-        .track audio {
-            width: 100%;
-            max-width: 500px;
+        .track-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .play-btn {
+            background: silver;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            border-right: 3px solid black;
+            border-bottom: 3px solid black;
+            padding: 8px 22px;
+            color: black;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            min-width: 110px;
+        }
+
+        .play-btn:active {
+            border-top: 3px solid black;
+            border-left: 3px solid black;
+            border-right: 3px solid white;
+            border-bottom: 3px solid white;
+        }
+
+        .track-time {
+            color: lime;
+            font-family: monospace;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .track.is-playing {
+            border-color: magenta;
+            box-shadow: 0 0 18px magenta;
+        }
+
+        .track.is-playing .num {
+            color: magenta;
         }
 
         .counter {
@@ -131,6 +174,141 @@
             display: inline-block;
             padding: 5px 10px;
             letter-spacing: 5px;
+        }
+
+        /* ------------- Sticky player bar ------------- */
+        .player-bar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 40, 0.97), #000);
+            border-top: 3px solid magenta;
+            color: lime;
+            font-family: monospace;
+            padding: 10px 16px;
+            display: grid;
+            grid-template-columns: minmax(180px, 1.2fr) auto minmax(220px, 2fr);
+            align-items: center;
+            gap: 14px;
+            z-index: 50;
+        }
+
+        .now-playing {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+            text-align: left;
+        }
+
+        .bar-cover {
+            width: 54px;
+            height: 54px;
+            object-fit: cover;
+            border: 3px ridge gold;
+            flex-shrink: 0;
+        }
+
+        .bar-meta {
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .bar-title {
+            color: cyan;
+            font-weight: bold;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .bar-album {
+            color: yellow;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .ctl {
+            background: silver;
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+            color: black;
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 44px;
+            height: 38px;
+            cursor: pointer;
+            font-family: monospace;
+        }
+
+        .ctl.play {
+            width: 54px;
+        }
+
+        .ctl:active {
+            border-top: 2px solid black;
+            border-left: 2px solid black;
+            border-right: 2px solid white;
+            border-bottom: 2px solid white;
+        }
+
+        .progress-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar-time-current,
+        .bar-time-total {
+            color: lime;
+            font-size: 0.8rem;
+            min-width: 42px;
+            text-align: center;
+        }
+
+        .progress {
+            flex: 1;
+            height: 12px;
+            background: #1a0033;
+            border: 1px solid #555;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: cyan;
+            height: 100%;
+            width: 0%;
+            pointer-events: none;
+            transition: width 0.08s linear;
+        }
+
+        @media (max-width: 600px) {
+            .player-bar {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                padding: 8px 10px;
+            }
+
+            .bar-cover {
+                width: 42px;
+                height: 42px;
+            }
+
+            .wrapper {
+                padding-bottom: 220px;
+            }
         }
 
         @keyframes blinker {
@@ -166,117 +344,120 @@
             and The Summit LP &mdash; this one's a different beast). Please
             <b>DON'T SHARE THIS LINK</b>: it's not indexed and the only way in is the URL itself.
             Headphones on. Notes welcome.<br><br>
+            <span style="color: lime;">TIP:</span> hit play on any track &mdash; the rest
+            auto-advances. <b>SPACE</b> = play/pause, <b>&larr;/&rarr;</b> = seek 5s,
+            <b>SHIFT + &larr;/&rarr;</b> = prev/next track.<br><br>
             &mdash; Wiseman Records
         </div>
 
         <h2 style="color: cyan; text-decoration: underline;">THE TAPES</h2>
 
-        <div class="track">
+        <div class="track" data-src="1%20-%20Punk%20in%20the%20Dark.mp3" data-title="Punk in the Dark">
             <h3><span class="num">01</span>Punk in the Dark</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="1%20-%20Punk%20in%20the%20Dark.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Punk in the Dark">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
-        <div class="track">
+        <div class="track" data-src="2%20-%20H.O.A.%20Dictator.mp3" data-title="H.O.A. Dictator">
             <h3><span class="num">02</span>H.O.A. Dictator</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="2%20-%20H.O.A.%20Dictator.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play H.O.A. Dictator">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
-        <div class="track">
+        <div class="track" data-src="3%20-%20Schro%CC%88dinger%27s%20Dishes.mp3" data-title="Schr&ouml;dinger's Dishes">
             <h3><span class="num">03</span>Schr&ouml;dinger's Dishes</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="3%20-%20Schro%CC%88dinger%27s%20Dishes.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Schrodinger's Dishes">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
-        <div class="track">
+        <div class="track" data-src="4%20-%20Call%20It%20Rain.mp3" data-title="Call It Rain">
             <h3><span class="num">04</span>Call It Rain</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="4%20-%20Call%20It%20Rain.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Call It Rain">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
-        <div class="track">
+        <div class="track" data-src="5%20-%20Skanking%20Right%20on%20Through.mp3" data-title="Skanking Right on Through">
             <h3><span class="num">05</span>Skanking Right on Through</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="5%20-%20Skanking%20Right%20on%20Through.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Skanking Right on Through">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
-        <div class="track">
+        <div class="track" data-src="6%20-%20The%20Great%20Migration%20of%20the%20Living%20Room%20Set.mp3" data-title="The Great Migration of the Living Room Set">
             <h3><span class="num">06</span>The Great Migration of the Living Room Set</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="6%20-%20The%20Great%20Migration%20of%20the%20Living%20Room%20Set.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play The Great Migration of the Living Room Set">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
-        <div class="track">
+        <div class="track" data-src="7%20-%20Tuition%20%26%20Fees%20%28The%20Bursar%27s%20Asylum%29.mp3" data-title="Tuition &amp; Fees (The Bursar's Asylum)">
             <h3><span class="num">07</span>Tuition &amp; Fees (The Bursar's Asylum)</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="7%20-%20Tuition%20%26%20Fees%20%28The%20Bursar%27s%20Asylum%29.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Tuition and Fees">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
-        <div class="track">
+        <div class="track" data-src="8%20-%20Case%20of%20the%20Missing%20Crown.mp3" data-title="Case of the Missing Crown">
             <h3><span class="num">08</span>Case of the Missing Crown</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="8%20-%20Case%20of%20the%20Missing%20Crown.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Case of the Missing Crown">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
-        <div class="track">
+        <div class="track" data-src="9%20-%20In%20Your%20Head.mp3" data-title="In Your Head">
             <h3><span class="num">09</span>In Your Head</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="9%20-%20In%20Your%20Head.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play In Your Head">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
-        <div class="track">
+        <div class="track" data-src="10%20-%20When%20You%27re%20Smilin%27.mp3" data-title="When You're Smilin'">
             <h3><span class="num">10</span>When You're Smilin'</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="10%20-%20When%20You%27re%20Smilin%27.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play When You're Smilin'">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
-        <div class="track">
+        <div class="track" data-src="11%20-%20Midnight%20Mulligan.mp3" data-title="Midnight Mulligan">
             <h3><span class="num">11</span>Midnight Mulligan</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="11%20-%20Midnight%20Mulligan.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Midnight Mulligan">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
-        <div class="track">
+        <div class="track" data-src="12%20-%20Long%20Haul.mp3" data-title="Long Haul">
             <h3><span class="num">12</span>Long Haul</h3>
             <div class="meta">[ ROUGH MIX // <span style="color: magenta;">UNRELEASED</span> ]</div>
-            <audio controls controlsList="nodownload" preload="none">
-                <source src="12%20-%20Long%20Haul.mp3" type="audio/mpeg">
-                Your browser does not support audio playback.
-            </audio>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Long Haul">PLAY</button>
+                <span class="track-time">--:--</span>
+            </div>
         </div>
 
         <br>
@@ -292,21 +473,221 @@
         </p>
     </div>
 
-    <script>
-        document.addEventListener('play', function (e) {
-            const players = document.querySelectorAll('audio');
-            for (const p of players) {
-                if (p !== e.target) p.pause();
-            }
-        }, true);
+    <div class="player-bar" role="region" aria-label="Audio player">
+        <div class="now-playing">
+            <img src="cover-art.png" class="bar-cover" alt="">
+            <div class="bar-meta">
+                <div class="bar-title">&mdash; select a track &mdash;</div>
+                <div class="bar-album">THE BRASS TAX</div>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="ctl prev" type="button" aria-label="Previous track">&#9198;</button>
+            <button class="ctl play" type="button" aria-label="Play / pause">&#9654;</button>
+            <button class="ctl next" type="button" aria-label="Next track">&#9197;</button>
+        </div>
+        <div class="progress-wrap">
+            <span class="bar-time-current">0:00</span>
+            <div class="progress" role="slider" aria-label="Seek"><div class="progress-fill"></div></div>
+            <span class="bar-time-total">--:--</span>
+        </div>
+        <audio id="audio" preload="metadata"></audio>
+    </div>
 
-        document.addEventListener('ended', function (e) {
-            const players = Array.from(document.querySelectorAll('audio'));
-            const next = players[players.indexOf(e.target) + 1];
-            if (!next) return;
-            next.play().catch(() => { });
-            next.closest('.track')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, true);
+    <script>
+        (function () {
+            const STORAGE_KEY = 'wiseman-brass-tax-player';
+            const audio = document.getElementById('audio');
+            const tracks = Array.from(document.querySelectorAll('.track[data-src]'));
+            const bar = {
+                title: document.querySelector('.bar-title'),
+                playBtn: document.querySelector('.ctl.play'),
+                prevBtn: document.querySelector('.ctl.prev'),
+                nextBtn: document.querySelector('.ctl.next'),
+                current: document.querySelector('.bar-time-current'),
+                total: document.querySelector('.bar-time-total'),
+                progress: document.querySelector('.progress'),
+                fill: document.querySelector('.progress-fill'),
+            };
+
+            let currentIndex = -1;
+            let lastSaved = 0;
+
+            function fmt(s) {
+                if (!isFinite(s) || s < 0) return '--:--';
+                s = Math.floor(s);
+                const m = Math.floor(s / 60);
+                const r = s % 60;
+                return m + ':' + String(r).padStart(2, '0');
+            }
+
+            function render() {
+                tracks.forEach((t, i) => {
+                    const active = i === currentIndex;
+                    t.classList.toggle('is-playing', active);
+                    const btn = t.querySelector('.play-btn');
+                    if (btn) btn.textContent = (active && !audio.paused) ? 'PAUSE' : 'PLAY';
+                });
+                bar.playBtn.innerHTML = audio.paused ? '&#9654;' : '&#10074;&#10074;';
+            }
+
+            function load(index, autoplay) {
+                if (index < 0 || index >= tracks.length) return;
+                currentIndex = index;
+                const t = tracks[index];
+                audio.src = t.dataset.src;
+                bar.title.textContent = t.dataset.title;
+                bar.total.textContent = '--:--';
+                bar.current.textContent = '0:00';
+                bar.fill.style.width = '0%';
+                if ('mediaSession' in navigator) {
+                    try {
+                        navigator.mediaSession.metadata = new MediaMetadata({
+                            title: t.dataset.title,
+                            artist: 'The Brass Tax',
+                            album: 'Brass Tax Preview',
+                            artwork: [{ src: 'cover-art.png', sizes: '500x500', type: 'image/png' }],
+                        });
+                    } catch (_) { }
+                }
+                if (autoplay) audio.play().catch(() => { });
+                render();
+            }
+
+            function toggle() {
+                if (currentIndex < 0) { load(0, true); return; }
+                if (audio.paused) audio.play().catch(() => { });
+                else audio.pause();
+            }
+
+            function next() {
+                if (currentIndex < tracks.length - 1) load(currentIndex + 1, true);
+            }
+
+            function prev() {
+                if (audio.currentTime > 3 && currentIndex >= 0) {
+                    audio.currentTime = 0;
+                    return;
+                }
+                if (currentIndex > 0) load(currentIndex - 1, true);
+            }
+
+            function seek(delta) {
+                if (!audio.duration) return;
+                audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + delta));
+            }
+
+            tracks.forEach((t, i) => {
+                const btn = t.querySelector('.play-btn');
+                if (!btn) return;
+                btn.addEventListener('click', () => {
+                    if (i === currentIndex) toggle();
+                    else load(i, true);
+                });
+            });
+
+            bar.playBtn.addEventListener('click', toggle);
+            bar.prevBtn.addEventListener('click', prev);
+            bar.nextBtn.addEventListener('click', next);
+
+            bar.progress.addEventListener('click', (e) => {
+                if (!audio.duration) return;
+                const r = bar.progress.getBoundingClientRect();
+                const ratio = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+                audio.currentTime = ratio * audio.duration;
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                bar.current.textContent = fmt(audio.currentTime);
+                if (audio.duration) {
+                    bar.fill.style.width = (100 * audio.currentTime / audio.duration) + '%';
+                }
+                if (audio.currentTime - lastSaved > 4) {
+                    lastSaved = audio.currentTime;
+                    saveState();
+                }
+            });
+
+            audio.addEventListener('loadedmetadata', () => {
+                bar.total.textContent = fmt(audio.duration);
+                const t = tracks[currentIndex];
+                if (t) {
+                    const tt = t.querySelector('.track-time');
+                    if (tt) tt.textContent = fmt(audio.duration);
+                }
+            });
+
+            audio.addEventListener('play', render);
+            audio.addEventListener('pause', () => { render(); saveState(); });
+
+            audio.addEventListener('ended', () => {
+                if (currentIndex < tracks.length - 1) {
+                    load(currentIndex + 1, true);
+                    const card = tracks[currentIndex];
+                    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    render();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                const tag = document.activeElement && document.activeElement.tagName;
+                if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+                if (e.key === ' ' || e.code === 'Space') {
+                    e.preventDefault();
+                    toggle();
+                } else if (e.key === 'ArrowRight' && e.shiftKey) {
+                    e.preventDefault();
+                    next();
+                } else if (e.key === 'ArrowLeft' && e.shiftKey) {
+                    e.preventDefault();
+                    prev();
+                } else if (e.key === 'ArrowRight') {
+                    seek(5);
+                } else if (e.key === 'ArrowLeft') {
+                    seek(-5);
+                }
+            });
+
+            if ('mediaSession' in navigator) {
+                try {
+                    navigator.mediaSession.setActionHandler('play', () => audio.play());
+                    navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+                    navigator.mediaSession.setActionHandler('previoustrack', prev);
+                    navigator.mediaSession.setActionHandler('nexttrack', next);
+                    navigator.mediaSession.setActionHandler('seekbackward', () => seek(-10));
+                    navigator.mediaSession.setActionHandler('seekforward', () => seek(10));
+                } catch (_) { }
+            }
+
+            function saveState() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                        index: currentIndex,
+                        time: audio.currentTime || 0,
+                    }));
+                } catch (_) { }
+            }
+
+            function restoreState() {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    if (!raw) return;
+                    const s = JSON.parse(raw);
+                    if (typeof s.index !== 'number' || s.index < 0 || s.index >= tracks.length) return;
+                    load(s.index, false);
+                    const resume = () => {
+                        if (s.time && audio.duration) {
+                            audio.currentTime = Math.min(s.time, audio.duration);
+                        }
+                        audio.removeEventListener('loadedmetadata', resume);
+                    };
+                    audio.addEventListener('loadedmetadata', resume);
+                } catch (_) { }
+            }
+
+            restoreState();
+        })();
     </script>
 
 </body>
