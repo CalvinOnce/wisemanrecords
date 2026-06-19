@@ -574,17 +574,21 @@
             }
 
             async function postPlay(num) {
+                const sessionKey = 'wiseman-counted-' + num;
                 try {
                     const r = await fetch(COUNT_API + '?track=' + encodeURIComponent(num), { method: 'POST' });
                     if (!r.ok) {
                         console.warn('[plays] POST failed', r.status, await r.text().catch(() => ''));
+                        countedThisLoad.delete(String(num));
                         return;
                     }
                     const data = await r.json();
                     setCount(num, data.count);
                     bumpCount(num);
+                    try { sessionStorage.setItem(sessionKey, '1'); } catch (_) { }
                 } catch (e) {
                     console.warn('[plays] POST threw', e);
+                    countedThisLoad.delete(String(num));
                 }
             }
 
@@ -600,7 +604,6 @@
                     return;
                 }
                 countedThisLoad.add(num);
-                try { sessionStorage.setItem(sessionKey, '1'); } catch (_) { }
                 postPlay(num);
             }
             const bar = {
