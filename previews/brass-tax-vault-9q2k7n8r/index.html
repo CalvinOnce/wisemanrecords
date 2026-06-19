@@ -9,6 +9,10 @@
     <title>!!! THE BRASS TAX // PRIVATE PREVIEW !!!</title>
     <link rel="icon" type="image/png" href="../../favicon.png">
     <style>
+        :root {
+            --bar-height: 80px;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -190,65 +194,128 @@
             color: magenta;
         }
 
+        /* Hide per-track accordions; lyrics now live in the player overlay */
         .lyrics {
-            margin-top: 14px;
-            text-align: center;
+            display: none;
         }
 
-        .lyrics summary {
-            list-style: none;
-            cursor: pointer;
-            display: inline-block;
+        /* ------------- Lyrics overlay (expands the player) ------------- */
+        .lyrics-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: var(--bar-height, 80px);
+            z-index: 45;
+            background: rgba(0, 0, 0, 0.96);
+            display: flex;
+            flex-direction: column;
+            transform: translateY(110%);
+            transition: transform 0.32s ease;
+            pointer-events: none;
+        }
+
+        .lyrics-overlay.open {
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .lyrics-header {
+            padding: 14px 18px;
+            border-bottom: 3px solid magenta;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+            background: rgba(0, 0, 40, 0.8);
+        }
+
+        .lyrics-overlay-title {
+            flex: 1;
+            color: cyan;
+            font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+            font-size: 1.05rem;
+            font-weight: bold;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lyrics-overlay-title::before {
+            content: "\266A ";
+            color: magenta;
+        }
+
+        .lyrics-close {
             background: silver;
             border-top: 2px solid white;
             border-left: 2px solid white;
             border-right: 2px solid black;
             border-bottom: 2px solid black;
-            padding: 5px 14px;
             color: black;
             font-weight: bold;
             font-family: monospace;
-            font-size: 0.82rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            font-size: 1.1rem;
+            width: 38px;
+            height: 34px;
+            cursor: pointer;
+            flex-shrink: 0;
         }
 
-        .lyrics summary::-webkit-details-marker { display: none; }
-        .lyrics summary::marker { content: ""; }
-
-        .lyrics summary::before {
-            content: "\266A ";
-            color: magenta;
-        }
-
-        .lyrics summary::after {
-            content: " \25BC";
-            color: #333;
-        }
-
-        .lyrics[open] summary::after {
-            content: " \25B2";
-        }
-
-        .lyrics summary:active {
+        .lyrics-close:active {
             border-top: 2px solid black;
             border-left: 2px solid black;
             border-right: 2px solid white;
             border-bottom: 2px solid white;
         }
 
-        .lyrics-body {
-            margin: 14px auto 0;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px dashed rgba(255, 0, 255, 0.5);
+        .lyrics-overlay-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px 32px;
             color: #d6f5d6;
             font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
-            font-size: 0.95rem;
-            line-height: 1.55;
-            padding: 18px 20px;
+            font-size: 1rem;
+            line-height: 1.65;
             white-space: pre-wrap;
             text-align: left;
-            max-width: 92%;
+            max-width: 680px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .lyrics-toggle {
+            background: silver;
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+            color: black;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            padding: 7px 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            align-self: center;
+            justify-self: end;
+            white-space: nowrap;
+        }
+
+        .lyrics-toggle::before {
+            content: "\266A ";
+            color: magenta;
+        }
+
+        .lyrics-toggle:active {
+            border-top: 2px solid black;
+            border-left: 2px solid black;
+            border-right: 2px solid white;
+            border-bottom: 2px solid white;
         }
 
         .counter {
@@ -274,7 +341,7 @@
             font-family: monospace;
             padding: 10px 16px;
             display: grid;
-            grid-template-columns: minmax(180px, 1.2fr) auto minmax(220px, 2fr);
+            grid-template-columns: minmax(180px, 1.2fr) auto minmax(220px, 2fr) auto;
             align-items: center;
             gap: 14px;
             z-index: 50;
@@ -381,6 +448,10 @@
         }
 
         @media (max-width: 600px) {
+            :root {
+                --bar-height: 220px;
+            }
+
             .player-bar {
                 grid-template-columns: 1fr;
                 gap: 8px;
@@ -394,6 +465,15 @@
 
             .wrapper {
                 padding-bottom: 220px;
+            }
+
+            .lyrics-toggle {
+                justify-self: center;
+            }
+
+            .lyrics-overlay-body {
+                padding: 18px 18px 24px;
+                font-size: 0.95rem;
             }
         }
 
@@ -1220,6 +1300,14 @@ We're in for the long haul.</div>
         </p>
     </div>
 
+    <div class="lyrics-overlay" aria-hidden="true">
+        <div class="lyrics-header">
+            <span class="lyrics-overlay-title">&mdash; select a track &mdash;</span>
+            <button class="lyrics-close" type="button" aria-label="Close lyrics">&times;</button>
+        </div>
+        <div class="lyrics-overlay-body">Hit play on any track to read along here.</div>
+    </div>
+
     <div class="player-bar" role="region" aria-label="Audio player">
         <div class="now-playing">
             <img src="cover-art.png" class="bar-cover" alt="">
@@ -1238,6 +1326,7 @@ We're in for the long haul.</div>
             <div class="progress" role="slider" aria-label="Seek"><div class="progress-fill"></div></div>
             <span class="bar-time-total">--:--</span>
         </div>
+        <button class="lyrics-toggle" type="button" aria-label="Show lyrics">Lyrics</button>
         <audio id="audio" preload="metadata"></audio>
     </div>
 
@@ -1339,6 +1428,43 @@ We're in for the long haul.</div>
                 fill: document.querySelector('.progress-fill'),
             };
 
+            const overlay = document.querySelector('.lyrics-overlay');
+            const overlayTitle = document.querySelector('.lyrics-overlay-title');
+            const overlayBody = document.querySelector('.lyrics-overlay-body');
+            const lyricsToggle = document.querySelector('.lyrics-toggle');
+            const lyricsClose = document.querySelector('.lyrics-close');
+
+            function setOverlayFor(track) {
+                if (!track) {
+                    overlayTitle.textContent = '— select a track —';
+                    overlayBody.textContent = 'Hit play on any track to read along here.';
+                    overlayBody.scrollTop = 0;
+                    return;
+                }
+                overlayTitle.textContent = track.dataset.title;
+                const source = track.querySelector('.lyrics-body');
+                overlayBody.textContent = source ? source.textContent.trim() : '(no lyrics)';
+                overlayBody.scrollTop = 0;
+            }
+
+            function openOverlay() {
+                overlay.classList.add('open');
+                overlay.setAttribute('aria-hidden', 'false');
+            }
+
+            function closeOverlay() {
+                overlay.classList.remove('open');
+                overlay.setAttribute('aria-hidden', 'true');
+            }
+
+            function toggleOverlay() {
+                if (overlay.classList.contains('open')) closeOverlay();
+                else openOverlay();
+            }
+
+            lyricsToggle.addEventListener('click', toggleOverlay);
+            lyricsClose.addEventListener('click', closeOverlay);
+
             let currentIndex = -1;
             let lastSaved = 0;
 
@@ -1380,6 +1506,7 @@ We're in for the long haul.</div>
                     } catch (_) { }
                 }
                 if (autoplay) audio.play().catch(() => { });
+                setOverlayFor(t);
                 render();
             }
 
@@ -1462,6 +1589,11 @@ We're in for the long haul.</div>
 
             document.addEventListener('keydown', (e) => {
                 const tag = document.activeElement && document.activeElement.tagName;
+                if (e.key === 'Escape' && overlay.classList.contains('open')) {
+                    e.preventDefault();
+                    closeOverlay();
+                    return;
+                }
                 if (tag === 'INPUT' || tag === 'TEXTAREA') return;
                 if (e.key === ' ' || e.code === 'Space') {
                     e.preventDefault();
