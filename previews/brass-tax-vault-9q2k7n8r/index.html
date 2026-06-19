@@ -190,6 +190,67 @@
             color: magenta;
         }
 
+        .lyrics {
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .lyrics summary {
+            list-style: none;
+            cursor: pointer;
+            display: inline-block;
+            background: silver;
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 5px 14px;
+            color: black;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .lyrics summary::-webkit-details-marker { display: none; }
+        .lyrics summary::marker { content: ""; }
+
+        .lyrics summary::before {
+            content: "\266A ";
+            color: magenta;
+        }
+
+        .lyrics summary::after {
+            content: " \25BC";
+            color: #333;
+        }
+
+        .lyrics[open] summary::after {
+            content: " \25B2";
+        }
+
+        .lyrics summary:active {
+            border-top: 2px solid black;
+            border-left: 2px solid black;
+            border-right: 2px solid white;
+            border-bottom: 2px solid white;
+        }
+
+        .lyrics-body {
+            margin: 14px auto 0;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px dashed rgba(255, 0, 255, 0.5);
+            color: #d6f5d6;
+            font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.55;
+            padding: 18px 20px;
+            white-space: pre-wrap;
+            text-align: left;
+            max-width: 92%;
+        }
+
         .counter {
             margin-top: 40px;
             font-family: monospace;
@@ -384,6 +445,59 @@
                 <button class="play-btn" type="button" aria-label="Play Punk in the Dark">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">Sitting with the static
+in the spaces between walls
+where the signal turns to feedback
+and nobody ever calls
+
+Grew up on three chords
+and the truth they couldn't say
+learned to make a noise
+out of everything that wouldn't go away
+
+I carried every shadow
+like a chord I couldn't name
+until I played it loud enough
+to know it wasn't shame
+
+I'll burn through every dark room
+with a three-chord fire and a broken tambourine
+Just a punk in the dark
+but I know what the darkness means
+
+I know these rooms by heart now
+know exactly where they bend
+know which dark belongs to me
+and which ones I can't mend
+
+The feedback used to scare me
+now it sounds a little like home
+It's different being lonely
+than choosing to be alone
+
+I carried every shadow
+like a chord I couldn't name
+until I played it loud enough
+to know it wasn't shame
+
+So I'll burn through every dark room
+with a three-chord fire and a broken tambourine
+still a punk in the dark
+but I know what the darkness means
+
+not fixed
+not saved
+not standing in the light
+I'm just a punk in the dark
+who finally learned the dark I made
+
+Sitting with the static
+a little less afraid
+I'm a punk in the dark
+and I know the dark I made</div>
+            </details>
         </div>
 
         <div class="track" data-src="2%20-%20H.O.A.%20Dictator.mp3" data-title="H.O.A. Dictator">
@@ -393,6 +507,57 @@
                 <button class="play-btn" type="button" aria-label="Play H.O.A. Dictator">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">She patrols the cul-de-sac in a golf cart made of gold
+With a clipboard and a ruler and a laminated code
+The grass is half an inch too high, the mailbox leans to the right
+She's drafting up a citation to deliver in the night
+
+You can try to hide your trash cans
+You can try to close the blinds
+Section 4, Paragraph B: Violations will be fined
+
+All hail the Queen of the subdivision zone
+With a gavel made of plastic and a heart of solid stone
+She's the H.O.A. Dictator, she's watching from the street
+If your shutters aren't "Fascist Beige," accept defeat!
+
+I painted my front door a shade of "Sunset Red"
+Next morning there's a letter saying "Change it or you're dead"
+My lawyer read the bylaws twice and quietly hung up
+She runs this little kingdom like a slow suburban curse
+
+You can't park on the street past nine
+You can't plant a maple tree
+Section 9, Paragraph C: Unauthorized tree.
+
+All hail the Queen of the subdivision zone
+With a gavel made of plastic and a heart of solid stone
+She's the H.O.A. Dictator, she's watching from the street
+If your shutters aren't "Fascist Beige," accept defeat!
+
+We tried to vote her out last May...
+But she moved the meeting to a Tuesday...
+At 2 PM... when we were all at work.
+SHE KNEW WE WERE AT WORK!
+...And she catered it. With cookies. We saw the photos.
+
+All hail the Queen of the subdivision zone
+With a gavel made of plastic and a heart of solid stone
+She's the H.O.A. Dictator, she's watching from the street
+If your shutters aren't "Fascist Beige" &mdash;
+WE ACCEPT DEFEAT!
+
+Pick it up, pick it up, pick up your trash cans!
+Your bin was visible at 6:01 PM.
+I was at dinner!
+Second notice generated.
+It's TRASH DAY!
+Bins placed before 7 AM constitute a violation. Section 12.
+Just let me live!
+Have a nice day.</div>
+            </details>
         </div>
 
         <div class="track" data-src="3%20-%20Schro%CC%88dinger%27s%20Dishes.mp3" data-title="Schr&ouml;dinger's Dishes">
@@ -402,6 +567,73 @@
                 <button class="play-btn" type="button" aria-label="Play Schrodinger's Dishes">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">There's a box in my kitchen full of mystery
+A stainless steel riddle of scientific theory
+Some dude with a cat and too much time
+Said "until you observe it, everything's fine!"
+So the plates and the bowls and that one good knife
+Exist in three states, living three lives!
+
+DON'T OPEN THE DOOR! (Whoa-oh-oh!)
+DON'T OPEN THE DOOR! (Whoa-oh-oh!)
+Is it clean? Is it dirty? Is it empty? WHO KNOWS!
+That's physics, baby! That's just how it goes!
+'Cause the dishes don't exist 'til you open it up
+So I'm drinking my coffee from a measuring cup!
+
+It's high noon in the kitchen, it's man vs. machine.
+Two old gunslingers in a kitchen-sink scene.
+It won't blink. I won't blink. Nobody gives ground.
+I'll starve where I'm standing cuz I'm not backing down!
+My wife circles the kitchen, I circle it too
+Two scientists pretending we don't need a spoon
+We nod at each other, we hold the line
+Nobody's hungry! We're doing just fine!
+
+DON'T OPEN THE DOOR! (Whoa-oh-oh!)
+DON'T OPEN THE DOOR! (Whoa-oh-oh!)
+Is it clean? Is it dirty? Is it empty? WHO KNOWS!
+That's physics, baby! That's just how it goes!
+'Cause the dishes don't exist 'til you open the door
+So I'm sipping my coffee from the silverware drawer!
+
+Day three of the standoff, we're getting creative
+Cereal in a colander, that's innovative!
+Spaghetti served proudly in the pot it was boiled
+A frisbee's a plate if it hasn't been soiled!
+I'm sipping my wine from a gravy boat
+Eating soup with a spatula, look at us cope!
+The cabinet is empty, the science is strong
+We can live like this forever! (What could go wrong?)
+
+Okay... okay... the truth is...
+It was never about the science...
+If I observe it... I have to unload it
+The wave function collapses... into chores
+
+OBSERVATION IS RESPONSIBILITY!
+AND I'M NOT READY TO COMMIT!
+
+...It's clean.
+It's been clean for three days.
+
+...I knew that.
+
+WE OPENED THE DOOR! (Whoa-oh-oh!)
+WE OPENED THE DOOR! (Whoa-oh-oh!)
+It was clean! Not dirty! Not empty! WE KNEW!
+That's physics, baby! The data came through!
+We finally looked and we opened it up
+And I'm drinking my coffee from an actual cup!
+
+Top Rack! (Cups!)
+Bottom Rack! (Plates!)
+Silverware Basket! (Nobody's favorite!)
+
+The toaster saw the whole thing.</div>
+            </details>
         </div>
 
         <div class="track" data-src="4%20-%20Call%20It%20Rain.mp3" data-title="Call It Rain">
@@ -411,6 +643,53 @@
                 <button class="play-btn" type="button" aria-label="Play Call It Rain">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">He calls us deplorable from the pulpit, from the stage
+And we whoop until we're hoarse for him &mdash; there's no one half so great (so great!)
+He sold us holy water that was tap and turpentine
+We drank it down and blessed him, and we'd buy it one more time
+He says the rich are righteous and the hungry are to blame
+We lost the farm to prove it, and we'd lose it all the same
+He swore to us the sky was falling, falling to the ground
+Then swore it never fell at all &mdash; we cheered for both, and how!
+
+Whatever you need, we'll give you &mdash; our savings, our sense, our sons
+Spit in our eyes and call it rain, we'll thank you when you're done
+Take it all and blame us, tell us lies and we'll agree
+'Cause it feels so good to follow, and it hurts too much to see
+
+He sells us hats and Bibles, sells us shoes and mobile phones (all gold!)
+We mortgaged grandma's headstone for a front-row golden throne
+He told us love our neighbor &mdash; then he told us name a foe
+We burned the Parsons' orchard, and we hummed a hymn, and oh&mdash;
+He says to doubt is treason, says a question is a sin
+So we shunned the ones who wondered, and we welcomed no one in
+He'll turn on us tomorrow, call us traitors, throw us through
+And we'll defend him to the grave &mdash; we'll say we knew it too
+
+Whatever you need, we'll give you &mdash; our savings, our sense, our sons
+Piss in our eyes and call it rain, we'll thank you when you're done
+Take it all and blame us, tell us lies and we'll agree
+'Cause it feels so good to follow, and it hurts too much to see
+
+Sometimes late at night a little voice gets in my head
+It whispers what he took from me, it counts my empty bed
+It says you gave him everything &mdash; now what'd he give you back?&mdash;
+...so I sing a little louder and I shove it down the crack
+'Cause if he lied then I'm a fool, and I can't bear to be
+So pour me one more sermon, sir &mdash; it hurts too much to see
+
+Whatever you need, we'll give you &mdash; our children, our truth, our names
+Light the whole world up for you and skank around the flames (Oi!)
+Take it all and thank you, and we'll deny it to the end
+'Cause it feels so good to follow &mdash; say you'll never leave us, friend
+
+(We'd do it again) we'd do it again
+(We'd do it again) we'd do it again
+Spit in our eyes &mdash; and we'll call it rain
+We'd do it again, we'd do it again...</div>
+            </details>
         </div>
 
         <div class="track" data-src="5%20-%20Skanking%20Right%20on%20Through.mp3" data-title="Skanking Right on Through">
@@ -420,6 +699,61 @@
                 <button class="play-btn" type="button" aria-label="Play Skanking Right on Through">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">Boots by the door
+Coffee in hand
+Grandma's old banner
+Rolled rubber band
+Neighbor shouts
+"ride with me, Friend"
+Today's the day the fence line ends
+
+We're heading down to the square
+My love
+Linked arm to arm in a ragged line
+They drew their maps on our fields above
+But this old ground is still yours and mine
+Spin me once in the crowd
+My dear
+Laugh so loud they all shake with fear
+If they invade what we hold true
+We'll just skank right on through
+
+Tractors parked crooked
+Blocking the street
+Kids with crayons on cardboard sheets
+"Hands off our homes" in crooked blue
+Croissants and coffee for the whole crew
+
+We're heading down to the square
+My love
+Linked arm to arm in a ragged line
+They drew their maps on our fields above
+But this old ground is still yours and mine
+Spin me once in the crowd
+My dear
+Laugh so loud they all shake with fear
+If they invade what we hold true
+We'll just skank right on through
+
+Kick up your heels
+Don't bow your head
+Skank till their big plans turn bright red
+Every loud step says what we mean
+This land beats stronger than any machine
+
+We're heading down to the square
+My love
+Linked arm to arm in a ragged line
+They drew their maps on our fields above
+But this old ground is still yours and mine
+Spin me once in the crowd
+My dear
+Laugh so loud they all shake with fear
+If they invade what we hold true
+We'll just skank right on through</div>
+            </details>
         </div>
 
         <div class="track" data-src="6%20-%20The%20Great%20Migration%20of%20the%20Living%20Room%20Set.mp3" data-title="The Great Migration of the Living Room Set">
@@ -429,6 +763,53 @@
                 <button class="play-btn" type="button" aria-label="Play The Great Migration of the Living Room Set">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">The wind is howling through the keyhole of the door
+I feel a vibration in the hardwood floor
+I wake up in the morning and my coffee table's gone
+I see it running naked across the neighbor's lawn!
+The sofa packed a suitcase full of loose and dirty change
+It's seeking out a life on the open mountain range!
+
+They are leaving!
+They are breathing!
+The upholstery is heaving!
+Hey! Hey! Hey!
+
+Fly away, my mahogany friends!
+Go to where the carpet never ends!
+Cross the border of the patio gate
+Don't look back, don't hesitate!
+I will sleep upon the cold concrete
+While the armchairs run down the street!
+La la la la la la la!
+
+The lamp has fallen in love with a street light down the road
+It severed its own cord, it broke the electric code!
+The bookshelf is a boat now, sailing on the sea
+Carrying the stories of my ancient history!
+I try to catch the ottoman, I grab it by the leg
+It kicks me in the face and it screams don't beg!
+
+Where do the tables go when the winter comes?
+Do they march to the beat of the distant drums?
+Are they refugees of the interior design?
+Or did they just get tired of holding up my wine?
+Faster! Faster! FASTER!
+
+Fly away, my mahogany friends!
+Go to where the carpet never ends!
+Cross the border of the patio gate
+Don't look back, don't hesitate!
+I will sleep upon the cold concrete
+While the armchairs run down the street!
+
+Party on the floor!
+Party on the floor!
+We don't need the furniture no more!
+Hup! Hup!</div>
+            </details>
         </div>
 
         <div class="track" data-src="7%20-%20Tuition%20%26%20Fees%20%28The%20Bursar%27s%20Asylum%29.mp3" data-title="Tuition &amp; Fees (The Bursar's Asylum)">
@@ -438,6 +819,49 @@
                 <button class="play-btn" type="button" aria-label="Play Tuition and Fees">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">The envelope was thick, the paper was white
+I opened it up in the soft morning light
+A simple transaction, an investment in truth
+A reasonable price for the days of his youth
+Surely there's a mistake, a decimal place drift
+I'll just call them up and give their spirits a lift...
+
+"Hello?" I said to the voice on the line
+"I think that your math is not aligning with mine."
+She said, "Sir, the tuition is fixed to the rate
+Of the prestige we offer inside of the gate."
+"But what about housing?" "It's premium, Sir."
+"And what about dining?" "It's gourmet, as per."
+
+Please hold. Your call is important to us.
+Did you know you can pay with a kidney?
+Please hold.
+I've been on hold for forty days...
+The music... it loops...
+It loops...
+
+I'll sell the Toyota!
+I'll sell the TV!
+I'll stop drinking coffee!
+I'll stop drinking tea!
+I don't need a liver!
+I don't need a spleen!
+I just need a receipt that's wiped squeaky clean!
+
+I'm emptying the coffers!
+I'm clearing out the vault!
+It's nobody's error!
+It's nobody's fault!
+It's just the cost of admission!
+The price of the brain!
+I'm swirling around in the bottom of the drain!
+Down to the zero!
+Down to the nil!
+I love the sensation of paying the bill!
+PAYING THE BILL! PAYING THE BILL!</div>
+            </details>
         </div>
 
         <div class="track" data-src="8%20-%20Case%20of%20the%20Missing%20Crown.mp3" data-title="Case of the Missing Crown">
@@ -447,6 +871,60 @@
                 <button class="play-btn" type="button" aria-label="Play Case of the Missing Crown">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">Tuesday morning. 8:00 AM. I approached the mirror. The suspect... was gone.
+
+I walked onto the bathroom tile
+I opened up the suspect's file
+The witness was the looking glass
+The only one who watched it pass
+I found the evidence in the sink
+No broken lock, no missing link
+The perimeter is breaking down
+They're falling back behind the crown
+
+I checked the locks
+I checked the pane
+No one to blame.
+No one to blame.
+
+The evidence is wearing thin
+A losing game I'm playing in
+The suspect left without a trace
+I'm losing ground, I'm losing face
+Where did it go?
+Nobody seems to know!
+
+I tried a tactical disguise
+To hide the truth from prying eyes
+I combed it left, I combed it right
+But nothing covers up the light
+I'm looking at the old photos now
+Where the line still held above the brow
+Now the whole campaign is heading south
+I taste the verdict in my mouth
+
+Is it the stress?
+Is it the food?
+Genetic feud.
+Genetic feud.
+
+Reconstructing the scene. This was no accident. It was a retreat. An orderly withdrawal. The subject's last transmission was clear&mdash;
+ABANDON THE SUMMIT!
+
+The evidence is wearing thin
+A losing game I'm playing in
+The suspect left without a trace
+I'm losing ground, I'm losing face
+Where did it go?
+Nobody seems to know!
+
+I'm closing the file.
+Case status: Cold.
+It wasn't a robbery...
+It was an inside job.</div>
+            </details>
         </div>
 
         <div class="track" data-src="9%20-%20In%20Your%20Head.mp3" data-title="In Your Head">
@@ -456,6 +934,56 @@
                 <button class="play-btn" type="button" aria-label="Play In Your Head">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">There now, there now. Deep breath, precious. Nothing happened &mdash; and you weren't there to see it anyway.
+
+Oh sweetheart, oh precious, just look how you shiver and sweat
+Come sit on our knee for a minute &mdash; you're the dearest thing we've met
+When's the last good sleep you had, love? You've been wearing yourself down
+That house that you swear burned still stands &mdash; the prettiest in town
+You think you saw it falling? That's your fever, that's your fright
+There's no smoke without your worry, there's no fire here tonight
+You never saw a thing, my angel, never heard a single sound
+And nobody's afraid but you &mdash; so why are you still hanging round?
+
+It's all in your head, dear &mdash; it's all in your head
+The things you swear we promised are the things we never said
+The streets are clean, the sky is clear, you're safe as you can be
+So who are you gonna trust &mdash; sweet us, or what you think you see?
+
+We were never at war, dear &mdash; we were always, always kind
+Now sip your little latte, sweet thing, and let us soothe your mind
+Go and check the ledger, pet &mdash; oh look, it all agrees!
+We've tidied every memory and trimmed them like the trees
+There was always bread aplenty, there was never any drought
+You imagined all that hunger &mdash; bless your heart, we'll wipe it out
+You're so clever, you're so special, you just feel things much too deep
+Now hush that pretty head of yours and drift away to sleep
+
+It's all in your head, dear &mdash; it's all in your head
+The things you swear we promised are the things we never said
+The streets are clean, the sky is clear, you're safe as you can be
+So who are you gonna trust &mdash; sweet us, or what you think you see?
+
+You're not well, you're not well &mdash; but we love you, we swear
+We've a quiet little room, dear, with your name right over there
+We'll take such gentle care of you, you'll never leave our&mdash;
+&mdash;oh, there now, dry your eyes, my sweet, there's nothing, nothing there
+You dreamed it all, you precious thing, you dreamed it in your bed
+And soon there won't be anything &mdash; or anyone &mdash; instead
+
+It's all in your head, my darling &mdash; there's nothing in your head
+The things you thought you lived through are the things that never bled
+The streets were always empty 'cause there's no one left to see&mdash;
+So who are you gonna trust &mdash; sweet us? There's no "you" left to be
+
+Shhh (shhh)
+It's all in your head (it's all in your head)
+There now, my darling, there now
+You're welcome
+Nothing happened here</div>
+            </details>
         </div>
 
         <div class="track" data-src="10%20-%20When%20You%27re%20Smilin%27.mp3" data-title="When You're Smilin'">
@@ -465,6 +993,97 @@
                 <button class="play-btn" type="button" aria-label="Play When You're Smilin'">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">Libert&eacute;, &Eacute;galit&eacute;, Fraternit&eacute;
+
+It starts as a whisper
+"Just fixing waste &mdash; fraud!"
+Just "tighten the borders"
+Just "weather the storms"
+They said "don't be so dramatic
+Don't be a slouch"
+While they searched for the love
+In a tight little couch (rich upholstery)
+
+They put fear on a bumper sticker
+Sold it two-for-one
+"Act now! Discount Freedom!
+The sale has just begun!"
+And we clap like wind-up monkeys
+To the marching of the feet
+While the boots get spit-and-polish
+And the jokes show their teeth (Ha!)
+
+Look who's smiling at the guillotine (smiling at the guillotine)
+Selfie with the guillotine (Selfie with the guillotine)
+Filter on the guillotine (Say cheese!)
+"If it's not me, then I'm not mean"
+Laugh track over gasoline
+"Freedom's fine, just keep it clean"
+Oh, isn't terror so routine
+When you're smiling at the guillotine
+
+They said "don't call it fascist
+That's rude, that's impolite"
+They prefer "law and order"
+With a flag that's just too bright
+They said "both sides, both sides"
+As the books went in the bin
+Then they banned the mirror too
+So we'd never see our grin (oh, fancy that)
+
+They turned outrage into merch
+Printed hate on a hat
+You can sip your little latte
+While you cheer the autocrat
+And the talk show keeps on chuckling
+At the clown with all the keys
+Till the punchline leaves the building
+And we're begging it "oh please"
+
+Look who's smiling at the guillotine (smiling at the guillotine)
+Skank around the guillotine (Skank 'round the guillotine)
+Lip-sync to the guillotine (Work it!)
+"If it's not mine, then I'm still clean"
+Share and like the quarantine
+Of anyone you deem obscene
+Oh, isn't horror so pristine
+When you're smiling at the guillotine
+
+(So funny)
+How it's "just a joke"
+Till the joke's on you
+(So sunny)
+When the sky's on fire
+But the smoke's off-view
+You say "lighten up, darling
+You're such a drama queen"
+'Til you're whispering punchlines
+From the back of an ICE machine...
+
+Libert&eacute;, &Eacute;galit&eacute;, Fraternit&eacute;
+
+Allez!
+
+Oh, regardez la guillotine
+Un selfie avec la guillotine
+Un filtre sur la guillotine (Ouistiti!)
+&laquo; C'est pas moi, donc je suis clean &raquo;
+Des rires sur l'h&eacute;moglobine
+&laquo; Libert&eacute;, juste en vitrine &raquo;
+L'horreur est devenue routine
+Quand on sourit &agrave; la guillotine!
+
+So raise your glass for the final act
+To the show we've already seen
+Thank you, you've been a perfect crowd
+For the world's worst rerun scene (ba-da-bop)
+Tip your staff, tip your conscience
+Try the exit, if you please...
+I'll be here, playing ska
+While the empire buckles at the knees.</div>
+            </details>
         </div>
 
         <div class="track" data-src="11%20-%20Midnight%20Mulligan.mp3" data-title="Midnight Mulligan">
@@ -474,6 +1093,53 @@
                 <button class="play-btn" type="button" aria-label="Play Midnight Mulligan">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">Calendar's a construct, numbers are a lie!
+We need a line in the sand before we die!
+Flushing the anxiety, wiping clean the slate.
+Forgiving you for being weird.
+Forgiving you for being late.
+
+Old acquaintances can be forgot!
+Especially the ones who talk a lot!
+Don't need the memories, don't need the ghosts!
+We need a rhythm and a reason for a toast!
+
+Raise a glass to the crash and burn!
+To bridges crossed and tables turned!
+We're dancing in the ashes of the plans that fell apart!
+And fixing every crack inside the armor of the heart!
+To old days!
+To new days!
+To days we barely survived!
+Lucky just to be alive!
+
+January was a bust, frozen, broke, and sad.
+July, I bought a jetski with the savings that I had.
+March, I quit my job. April, took it back.
+October was a blur, and we don't discuss the facts!
+Three hundred sixty-five mistakes, stacked up wall to wall &mdash;
+But midnight is the mop that comes and wipes away them all!
+
+Five! For every door we slammed!
+Four! For every stupid plan!
+Three! For all the tears we cried!
+Two! For making it alive!
+One!
+ZERO IS A MYTH &mdash; IT STARTS AGAIN!
+
+Raise a glass to the crash and burn!
+To bridges crossed and tables turned!
+We're dancing in the ashes of the plans that fell apart!
+And fixing every crack inside the armor of the heart!
+To old days!
+To new days!
+To days we barely survived!
+
+Should old acquaintance be forgot?
+Yeah, probably!</div>
+            </details>
         </div>
 
         <div class="track" data-src="12%20-%20Long%20Haul.mp3" data-title="Long Haul">
@@ -483,6 +1149,62 @@
                 <button class="play-btn" type="button" aria-label="Play Long Haul">PLAY</button>
                 <span class="track-time">--:--</span>
             </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">We don't move as fast as we used to
+The paint's chipped off and the shocks aren't new
+We've got two hundred thousand miles on the frame
+And the road ahead doesn't look the same
+As the maps we drew when we were twenty-two
+But I'm happy riding shotgun with you
+
+We're in for the long haul, babe
+We're taking the scenic route
+Through the noise and the crazy
+And the shadow of a doubt
+It's not a sprint to the finish line
+It's a slow ride through the passage of time
+Yeah, we're in for the long haul.
+We're in for the long haul.
+
+The house is loud and the schedule is tight
+We're passing ships in the kitchen light
+But there's a comfort in the way we steer
+Through the traffic and the changing gears
+We traded flash for something that lasts
+We built our future out of our past
+
+We're in for the long haul, babe
+We're taking the scenic route
+Through the noise and the crazy
+And the shadow of a doubt
+It's not a sprint to the finish line
+It's a slow ride through the passage of time
+Yeah, we're in for the long haul.
+We're in for the long haul.
+
+Yeah, we're in for the long haul, the long haul... the long haul...
+
+Rum Ri Dee!
+Lord have mercy!
+Watch dee situation!
+I'm talkin' bout dee kindness, dee caring!
+Talkin' bout dee heavy loads that we are sharin'!
+She got dat gentle spirit but her strength is grand
+Dee finest woman in dee whole of dee land!
+She da rock, she da anchor, dee solid foundation!
+No waver, no drift.
+No hesitation!
+
+We're in for the long haul, baby
+We're taking the scenic route
+Through the noise and the crazy
+And the shadow of a doubt
+It's not a sprint to the finish line
+It's a slow ride through the passage of time
+Yeah, we're in for the long haul.
+We're in for the long haul.</div>
+            </details>
         </div>
 
         <br>
