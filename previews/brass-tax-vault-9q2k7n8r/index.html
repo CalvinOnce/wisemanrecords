@@ -558,24 +558,34 @@
             async function loadCounts() {
                 try {
                     const r = await fetch(COUNT_API, { headers: { 'Accept': 'application/json' } });
-                    if (!r.ok) return;
+                    if (!r.ok) {
+                        console.warn('[plays] GET failed', r.status, await r.text().catch(() => ''));
+                        return;
+                    }
                     const counts = await r.json();
                     tracks.forEach(t => {
                         const num = t.dataset.trackNum;
                         const n = parseInt(counts[num] || 0, 10);
                         setCount(num, n);
                     });
-                } catch (_) { }
+                } catch (e) {
+                    console.warn('[plays] GET threw', e);
+                }
             }
 
             async function postPlay(num) {
                 try {
                     const r = await fetch(COUNT_API + '?track=' + encodeURIComponent(num), { method: 'POST' });
-                    if (!r.ok) return;
+                    if (!r.ok) {
+                        console.warn('[plays] POST failed', r.status, await r.text().catch(() => ''));
+                        return;
+                    }
                     const data = await r.json();
                     setCount(num, data.count);
                     bumpCount(num);
-                } catch (_) { }
+                } catch (e) {
+                    console.warn('[plays] POST threw', e);
+                }
             }
 
             const countedThisLoad = new Set();
