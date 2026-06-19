@@ -188,7 +188,7 @@
             font-family: monospace;
             padding: 10px 16px;
             display: grid;
-            grid-template-columns: auto auto minmax(200px, 1fr);
+            grid-template-columns: minmax(180px, 1.2fr) auto minmax(220px, 2fr);
             align-items: center;
             gap: 14px;
             z-index: 50;
@@ -208,6 +208,26 @@
             object-fit: cover;
             border: 3px ridge gold;
             flex-shrink: 0;
+        }
+
+        .bar-meta {
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .bar-title {
+            color: cyan;
+            font-weight: bold;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .bar-album {
+            color: yellow;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
         }
 
         .controls {
@@ -242,45 +262,36 @@
             border-bottom: 2px solid white;
         }
 
-        .cassette-wrap {
+        .progress-wrap {
             display: flex;
             align-items: center;
-            justify-content: center;
-            min-width: 0;
-            padding: 0 6px;
+            gap: 8px;
         }
 
-        .cassette {
-            width: 100%;
-            max-width: 320px;
-            height: auto;
-            user-select: none;
-            display: block;
+        .bar-time-current,
+        .bar-time-total {
+            color: lime;
+            font-size: 0.8rem;
+            min-width: 42px;
+            text-align: center;
         }
 
-        .cassette .reel {
-            transform-box: fill-box;
-            transform-origin: center;
-            animation: reel-spin 1.4s linear infinite;
-            animation-play-state: paused;
-            will-change: transform;
-        }
-
-        .cassette.is-spinning .reel {
-            animation-play-state: running;
-        }
-
-        .cass-title {
-            font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
-            font-weight: bold;
-        }
-
-        .cass-progress-hit {
+        .progress {
+            flex: 1;
+            height: 12px;
+            background: #1a0033;
+            border: 1px solid #555;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes reel-spin {
-            to { transform: rotate(360deg); }
+        .progress-fill {
+            background: cyan;
+            height: 100%;
+            width: 0%;
+            pointer-events: none;
+            transition: width 0.08s linear;
         }
 
         @media (max-width: 600px) {
@@ -464,70 +475,21 @@
 
     <div class="player-bar" role="region" aria-label="Audio player">
         <div class="now-playing">
-            <img src="cover-art.png" class="bar-cover" alt="The Brass Tax album cover">
+            <img src="cover-art.png" class="bar-cover" alt="">
+            <div class="bar-meta">
+                <div class="bar-title">&mdash; select a track &mdash;</div>
+                <div class="bar-album">THE BRASS TAX</div>
+            </div>
         </div>
         <div class="controls">
             <button class="ctl prev" type="button" aria-label="Previous track">&#9198;</button>
             <button class="ctl play" type="button" aria-label="Play / pause">&#9654;</button>
             <button class="ctl next" type="button" aria-label="Next track">&#9197;</button>
         </div>
-        <div class="cassette-wrap">
-            <svg class="cassette" viewBox="0 0 240 78" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cassette tape player">
-                <defs>
-                    <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stop-color="#3a3a3a"/>
-                        <stop offset="0.5" stop-color="#181818"/>
-                        <stop offset="1" stop-color="#2a2a2a"/>
-                    </linearGradient>
-                    <linearGradient id="labelGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stop-color="#fbe9a5"/>
-                        <stop offset="1" stop-color="#d8b558"/>
-                    </linearGradient>
-                </defs>
-                <rect x="1" y="1" width="238" height="76" rx="6"
-                      fill="url(#bodyGrad)" stroke="#000" stroke-width="1.5"/>
-                <rect x="3" y="3" width="234" height="1.5" fill="#4a4a4a" opacity="0.7"/>
-                <circle cx="7" cy="7" r="1.8" fill="#111" stroke="#555" stroke-width="0.4"/>
-                <circle cx="233" cy="7" r="1.8" fill="#111" stroke="#555" stroke-width="0.4"/>
-                <circle cx="7" cy="71" r="1.8" fill="#111" stroke="#555" stroke-width="0.4"/>
-                <circle cx="233" cy="71" r="1.8" fill="#111" stroke="#555" stroke-width="0.4"/>
-
-                <rect x="46" y="6" width="148" height="32" rx="1.5"
-                      fill="url(#labelGrad)" stroke="#8a6f2a" stroke-width="0.5"/>
-                <rect x="46" y="6" width="148" height="6" fill="#c39830"/>
-                <text x="120" y="10.6" font-family="monospace" font-size="4.2" font-weight="bold"
-                      fill="#1a1a1a" text-anchor="middle">BRASS TAX &#8226;&#8226; PREVIEW</text>
-                <text x="120" y="23" class="cass-title" font-size="6.6" fill="#000"
-                      text-anchor="middle">&mdash; select a track &mdash;</text>
-                <text x="120" y="33" class="cass-time" font-family="monospace" font-size="4.8"
-                      fill="#3a2a00" text-anchor="middle">--:-- / --:--</text>
-
-                <circle cx="24" cy="54" r="17" fill="#000"/>
-                <circle cx="216" cy="54" r="17" fill="#000"/>
-
-                <g class="reel" style="transform-box: fill-box; transform-origin: center;">
-                    <circle cx="24" cy="54" r="15" fill="#5a3812"/>
-                    <circle cx="24" cy="54" r="6" fill="#1a1a1a"/>
-                    <rect x="23" y="47" width="2" height="14" fill="#2a2a2a"/>
-                    <rect x="17" y="53" width="14" height="2" fill="#2a2a2a"/>
-                </g>
-
-                <g class="reel" style="transform-box: fill-box; transform-origin: center;">
-                    <circle cx="216" cy="54" r="15" fill="#5a3812"/>
-                    <circle cx="216" cy="54" r="6" fill="#1a1a1a"/>
-                    <rect x="215" y="47" width="2" height="14" fill="#2a2a2a"/>
-                    <rect x="209" y="53" width="14" height="2" fill="#2a2a2a"/>
-                </g>
-
-                <line x1="38" y1="44" x2="202" y2="44" stroke="#0a0a0a" stroke-width="0.8" opacity="0.7"/>
-
-                <rect x="46" y="65" width="148" height="6" rx="1"
-                      fill="#1a0033" stroke="#444" stroke-width="0.5"/>
-                <rect x="46" y="65" width="0" height="6" rx="1"
-                      fill="cyan" class="cass-progress"/>
-                <rect x="46" y="62" width="148" height="11"
-                      fill="transparent" class="cass-progress-hit"/>
-            </svg>
+        <div class="progress-wrap">
+            <span class="bar-time-current">0:00</span>
+            <div class="progress" role="slider" aria-label="Seek"><div class="progress-fill"></div></div>
+            <span class="bar-time-total">--:--</span>
         </div>
         <audio id="audio" preload="metadata"></audio>
     </div>
@@ -535,19 +497,17 @@
     <script>
         (function () {
             const STORAGE_KEY = 'wiseman-brass-tax-player';
-            const PROGRESS_W = 148;
-            const PROGRESS_X = 46;
             const audio = document.getElementById('audio');
             const tracks = Array.from(document.querySelectorAll('.track[data-src]'));
             const bar = {
-                title: document.querySelector('.cass-title'),
-                timeEl: document.querySelector('.cass-time'),
-                fill: document.querySelector('.cass-progress'),
-                seekHit: document.querySelector('.cass-progress-hit'),
-                cassette: document.querySelector('.cassette'),
+                title: document.querySelector('.bar-title'),
                 playBtn: document.querySelector('.ctl.play'),
                 prevBtn: document.querySelector('.ctl.prev'),
                 nextBtn: document.querySelector('.ctl.next'),
+                current: document.querySelector('.bar-time-current'),
+                total: document.querySelector('.bar-time-total'),
+                progress: document.querySelector('.progress'),
+                fill: document.querySelector('.progress-fill'),
             };
 
             let currentIndex = -1;
@@ -561,25 +521,6 @@
                 return m + ':' + String(r).padStart(2, '0');
             }
 
-            function setTitle(text) {
-                bar.title.textContent = text;
-                bar.title.removeAttribute('textLength');
-                bar.title.removeAttribute('lengthAdjust');
-                requestAnimationFrame(() => {
-                    try {
-                        const w = bar.title.getBBox().width;
-                        if (w > 142) {
-                            bar.title.setAttribute('textLength', '142');
-                            bar.title.setAttribute('lengthAdjust', 'spacingAndGlyphs');
-                        }
-                    } catch (_) { }
-                });
-            }
-
-            function setProgressWidth(px) {
-                bar.fill.setAttribute('width', Math.max(0, Math.min(PROGRESS_W, px)));
-            }
-
             function render() {
                 tracks.forEach((t, i) => {
                     const active = i === currentIndex;
@@ -588,7 +529,6 @@
                     if (btn) btn.textContent = (active && !audio.paused) ? 'PAUSE' : 'PLAY';
                 });
                 bar.playBtn.innerHTML = audio.paused ? '&#9654;' : '&#10074;&#10074;';
-                bar.cassette.classList.toggle('is-spinning', !audio.paused && currentIndex >= 0);
             }
 
             function load(index, autoplay) {
@@ -596,9 +536,10 @@
                 currentIndex = index;
                 const t = tracks[index];
                 audio.src = t.dataset.src;
-                setTitle(t.dataset.title);
-                bar.timeEl.textContent = '--:-- / --:--';
-                setProgressWidth(0);
+                bar.title.textContent = t.dataset.title;
+                bar.total.textContent = '--:--';
+                bar.current.textContent = '0:00';
+                bar.fill.style.width = '0%';
                 if ('mediaSession' in navigator) {
                     try {
                         navigator.mediaSession.metadata = new MediaMetadata({
@@ -649,19 +590,17 @@
             bar.prevBtn.addEventListener('click', prev);
             bar.nextBtn.addEventListener('click', next);
 
-            bar.seekHit.addEventListener('click', (e) => {
+            bar.progress.addEventListener('click', (e) => {
                 if (!audio.duration) return;
-                const r = bar.seekHit.getBoundingClientRect();
+                const r = bar.progress.getBoundingClientRect();
                 const ratio = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
                 audio.currentTime = ratio * audio.duration;
             });
 
             audio.addEventListener('timeupdate', () => {
-                const cur = fmt(audio.currentTime);
-                const tot = isFinite(audio.duration) ? fmt(audio.duration) : '--:--';
-                bar.timeEl.textContent = cur + ' / ' + tot;
+                bar.current.textContent = fmt(audio.currentTime);
                 if (audio.duration) {
-                    setProgressWidth(PROGRESS_W * audio.currentTime / audio.duration);
+                    bar.fill.style.width = (100 * audio.currentTime / audio.duration) + '%';
                 }
                 if (audio.currentTime - lastSaved > 4) {
                     lastSaved = audio.currentTime;
@@ -670,7 +609,7 @@
             });
 
             audio.addEventListener('loadedmetadata', () => {
-                bar.timeEl.textContent = '0:00 / ' + fmt(audio.duration);
+                bar.total.textContent = fmt(audio.duration);
                 const t = tracks[currentIndex];
                 if (t) {
                     const tt = t.querySelector('.track-time');
