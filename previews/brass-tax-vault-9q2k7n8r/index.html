@@ -156,6 +156,31 @@
             letter-spacing: 1px;
         }
 
+        .play-count {
+            color: magenta;
+            font-family: monospace;
+            font-size: 0.85rem;
+            background: black;
+            border: 1px solid magenta;
+            padding: 3px 9px;
+            letter-spacing: 1px;
+        }
+
+        .play-count::before {
+            content: "\25B6 ";
+            color: cyan;
+        }
+
+        .play-count.is-bump {
+            animation: bump 0.45s ease;
+        }
+
+        @keyframes bump {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.18); color: yellow; }
+            100% { transform: scale(1); }
+        }
+
         .track.is-playing {
             border-color: magenta;
             box-shadow: 0 0 18px magenta;
@@ -497,8 +522,77 @@
     <script>
         (function () {
             const STORAGE_KEY = 'wiseman-brass-tax-player';
+            const COUNT_API = '/api/plays';
+            const PLAY_THRESHOLD = 15;
             const audio = document.getElementById('audio');
             const tracks = Array.from(document.querySelectorAll('.track[data-src]'));
+
+            tracks.forEach((t, i) => {
+                t.dataset.trackNum = String(i + 1);
+                const row = t.querySelector('.track-row');
+                if (row && !row.querySelector('.play-count')) {
+                    const span = document.createElement('span');
+                    span.className = 'play-count';
+                    span.textContent = '-- plays';
+                    row.appendChild(span);
+                }
+            });
+
+            function setCount(num, n) {
+                const t = tracks.find(t => t.dataset.trackNum === String(num));
+                if (!t) return;
+                const el = t.querySelector('.play-count');
+                if (!el) return;
+                el.textContent = n.toLocaleString() + ' play' + (n === 1 ? '' : 's');
+            }
+
+            function bumpCount(num) {
+                const t = tracks.find(t => t.dataset.trackNum === String(num));
+                const el = t && t.querySelector('.play-count');
+                if (!el) return;
+                el.classList.remove('is-bump');
+                void el.offsetWidth;
+                el.classList.add('is-bump');
+            }
+
+            async function loadCounts() {
+                try {
+                    const r = await fetch(COUNT_API, { headers: { 'Accept': 'application/json' } });
+                    if (!r.ok) return;
+                    const counts = await r.json();
+                    tracks.forEach(t => {
+                        const num = t.dataset.trackNum;
+                        const n = parseInt(counts[num] || 0, 10);
+                        setCount(num, n);
+                    });
+                } catch (_) { }
+            }
+
+            async function postPlay(num) {
+                try {
+                    const r = await fetch(COUNT_API + '?track=' + encodeURIComponent(num), { method: 'POST' });
+                    if (!r.ok) return;
+                    const data = await r.json();
+                    setCount(num, data.count);
+                    bumpCount(num);
+                } catch (_) { }
+            }
+
+            const countedThisLoad = new Set();
+            function maybeMarkPlay() {
+                if (currentIndex < 0) return;
+                if (audio.currentTime < PLAY_THRESHOLD) return;
+                const num = tracks[currentIndex].dataset.trackNum;
+                if (countedThisLoad.has(num)) return;
+                const sessionKey = 'wiseman-counted-' + num;
+                if (sessionStorage.getItem(sessionKey)) {
+                    countedThisLoad.add(num);
+                    return;
+                }
+                countedThisLoad.add(num);
+                try { sessionStorage.setItem(sessionKey, '1'); } catch (_) { }
+                postPlay(num);
+            }
             const bar = {
                 title: document.querySelector('.bar-title'),
                 playBtn: document.querySelector('.ctl.play'),
@@ -606,6 +700,7 @@
                     lastSaved = audio.currentTime;
                     saveState();
                 }
+                maybeMarkPlay();
             });
 
             audio.addEventListener('loadedmetadata', () => {
@@ -687,6 +782,7 @@
             }
 
             restoreState();
+            loadCounts();
         })();
     </script>
 
