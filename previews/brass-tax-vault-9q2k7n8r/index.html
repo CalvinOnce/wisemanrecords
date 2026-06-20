@@ -185,6 +185,34 @@
             100% { transform: scale(1); }
         }
 
+        .stats-row {
+            display: none;
+        }
+
+        body.stats-mode .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px dashed cyan;
+            color: cyan;
+            font-family: monospace;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+        }
+
+        body.stats-mode .stats-row .completion-pct {
+            color: yellow;
+            font-weight: bold;
+        }
+
+        body.stats-mode .stats-row .funnel {
+            color: #d6f5d6;
+        }
+
         .track.is-playing {
             border-color: magenta;
             box-shadow: 0 0 18px magenta;
@@ -1335,8 +1363,12 @@ We're in for the long haul.</div>
             const STORAGE_KEY = 'wiseman-brass-tax-player';
             const COUNT_API = '/api/plays';
             const PLAY_THRESHOLD = 15;
+            const STATS_MODE = new URLSearchParams(location.search).get('stats') === '1';
+            const MILESTONE_LABELS = { p25: '25%', p50: '50%', p75: '75%', complete: 'done' };
             const audio = document.getElementById('audio');
             const tracks = Array.from(document.querySelectorAll('.track[data-src]'));
+
+            if (STATS_MODE) document.body.classList.add('stats-mode');
 
             tracks.forEach((t, i) => {
                 t.dataset.trackNum = String(i + 1);
@@ -1346,6 +1378,18 @@ We're in for the long haul.</div>
                     span.className = 'play-count';
                     span.textContent = '-- plays';
                     row.appendChild(span);
+                }
+                if (STATS_MODE && !t.querySelector('.stats-row')) {
+                    const stats = document.createElement('div');
+                    stats.className = 'stats-row';
+                    stats.innerHTML = [
+                        '<span class="funnel" data-m="p25">25%: --</span>',
+                        '<span class="funnel" data-m="p50">50%: --</span>',
+                        '<span class="funnel" data-m="p75">75%: --</span>',
+                        '<span class="funnel" data-m="complete">done: --</span>',
+                        '<span class="completion-pct">--% completion</span>',
+                    ].join('');
+                    t.appendChild(stats);
                 }
             });
 
@@ -1366,6 +1410,45 @@ We're in for the long haul.</div>
                 el.classList.add('is-bump');
             }
 
+            function renderStats(num, trackData) {
+                if (!STATS_MODE) return;
+                const t = tracks.find(t => t.dataset.trackNum === String(num));
+                if (!t) return;
+                const stats = t.querySelector('.stats-row');
+                if (!stats) return;
+                const plays = parseInt(trackData.plays || 0, 10);
+                ['p25', 'p50', 'p75', 'complete'].forEach(m => {
+                    const v = parseInt(trackData[m] || 0, 10);
+                    const span = stats.querySelector('[data-m="' + m + '"]');
+                    if (span) span.textContent = MILESTONE_LABELS[m] + ': ' + v;
+                });
+                const complete = parseInt(trackData.complete || 0, 10);
+                const pctEl = stats.querySelector('.completion-pct');
+                if (pctEl) {
+                    const pct = plays > 0 ? Math.round(100 * complete / plays) : 0;
+                    pctEl.textContent = pct + '% completion';
+                }
+            }
+
+            function bumpStat(num, milestone, count) {
+                if (!STATS_MODE) return;
+                const t = tracks.find(t => t.dataset.trackNum === String(num));
+                if (!t) return;
+                const stats = t.querySelector('.stats-row');
+                if (!stats) return;
+                const span = stats.querySelector('[data-m="' + milestone + '"]');
+                if (span) span.textContent = MILESTONE_LABELS[milestone] + ': ' + count;
+                if (milestone === 'complete') {
+                    const playsEl = t.querySelector('.play-count');
+                    const plays = playsEl ? parseInt((playsEl.textContent.match(/\d+/) || [0])[0], 10) : 0;
+                    const pctEl = stats.querySelector('.completion-pct');
+                    if (pctEl) {
+                        const pct = plays > 0 ? Math.round(100 * count / plays) : 0;
+                        pctEl.textContent = pct + '% completion';
+                    }
+                }
+            }
+
             async function loadCounts() {
                 try {
                     const r = await fetch(COUNT_API, { headers: { 'Accept': 'application/json' } });
@@ -1376,8 +1459,10 @@ We're in for the long haul.</div>
                     const counts = await r.json();
                     tracks.forEach(t => {
                         const num = t.dataset.trackNum;
-                        const n = parseInt(counts[num] || 0, 10);
-                        setCount(num, n);
+                        const trackData = counts[num] || {};
+                        const plays = parseInt(trackData.plays || 0, 10);
+                        setCount(num, plays);
+                        renderStats(num, trackData);
                     });
                 } catch (e) {
                     console.warn('[plays] GET threw', e);
@@ -1399,7 +1484,24 @@ We're in for the long haul.</div>
                 }
             }
 
+            async function postMilestone(num, milestone) {
+                try {
+                    const url = COUNT_API + '?track=' + encodeURIComponent(num) + '&milestone=' + milestone;
+                    const r = await fetch(url, { method: 'POST' });
+                    if (!r.ok) {
+                        console.warn('[plays] milestone POST failed', milestone, r.status);
+                        return;
+                    }
+                    const data = await r.json();
+                    bumpStat(num, milestone, data.count);
+                } catch (e) {
+                    console.warn('[plays] milestone POST threw', e);
+                }
+            }
+
             let pendingCount = false;
+            let pendingMilestones = new Set();
+
             function maybeMarkPlay() {
                 if (!pendingCount) return;
                 if (currentIndex < 0) return;
@@ -1407,6 +1509,29 @@ We're in for the long haul.</div>
                 pendingCount = false;
                 const num = tracks[currentIndex].dataset.trackNum;
                 postPlay(num);
+            }
+
+            function maybeMarkMilestones() {
+                if (currentIndex < 0) return;
+                if (!audio.duration || !isFinite(audio.duration)) return;
+                const ratio = audio.currentTime / audio.duration;
+                const num = tracks[currentIndex].dataset.trackNum;
+                // One milestone per timeupdate tick so a scrub doesn't credit everything at once.
+                if (pendingMilestones.has('p25') && ratio >= 0.25) {
+                    pendingMilestones.delete('p25');
+                    postMilestone(num, 'p25');
+                    return;
+                }
+                if (pendingMilestones.has('p50') && ratio >= 0.5) {
+                    pendingMilestones.delete('p50');
+                    postMilestone(num, 'p50');
+                    return;
+                }
+                if (pendingMilestones.has('p75') && ratio >= 0.75) {
+                    pendingMilestones.delete('p75');
+                    postMilestone(num, 'p75');
+                    return;
+                }
             }
             const bar = {
                 title: document.querySelector('.bar-title'),
@@ -1554,6 +1679,7 @@ We're in for the long haul.</div>
                     saveState();
                 }
                 maybeMarkPlay();
+                maybeMarkMilestones();
             });
 
             audio.addEventListener('loadedmetadata', () => {
@@ -1566,12 +1692,19 @@ We're in for the long haul.</div>
             });
 
             audio.addEventListener('play', () => {
-                if (audio.currentTime < 1) pendingCount = true;
+                if (audio.currentTime < 1) {
+                    pendingCount = true;
+                    pendingMilestones = new Set(['p25', 'p50', 'p75']);
+                }
                 render();
             });
             audio.addEventListener('pause', () => { render(); saveState(); });
 
             audio.addEventListener('ended', () => {
+                if (currentIndex >= 0) {
+                    const num = tracks[currentIndex].dataset.trackNum;
+                    postMilestone(num, 'complete');
+                }
                 if (currentIndex < tracks.length - 1) {
                     load(currentIndex + 1, true);
                     const card = tracks[currentIndex];
