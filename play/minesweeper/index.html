@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="robots" content="noindex">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>!!! BASSWEEPER // WISEMAN RECORDS !!!</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <style>
+        :root {
+            --silver: #c0c0c0;
+            --silver-dark: #808080;
+            --silver-darker: #404040;
+            --silver-light: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px 10px;
+            background-color: #000000;
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.2) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: lime;
+            font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+            text-align: center;
+            min-height: 100vh;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .marquee-container {
+            background: blue;
+            color: white;
+            font-weight: bold;
+            padding: 5px;
+            border-top: 2px solid white;
+            border-bottom: 2px solid white;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: -20px -10px 20px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: yellow;
+            text-shadow: 4px 4px red;
+            margin: 10px 0 4px;
+            text-transform: uppercase;
+            animation: pulse 0.5s infinite alternate;
+        }
+
+        .subtitle {
+            color: magenta;
+            font-weight: bold;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .game {
+            display: inline-block;
+            background: var(--silver);
+            border-top: 3px solid var(--silver-light);
+            border-left: 3px solid var(--silver-light);
+            border-right: 3px solid var(--silver-darker);
+            border-bottom: 3px solid var(--silver-darker);
+            padding: 8px;
+            color: black;
+        }
+
+        .hud {
+            background: var(--silver);
+            border-top: 2px solid var(--silver-darker);
+            border-left: 2px solid var(--silver-darker);
+            border-right: 2px solid var(--silver-light);
+            border-bottom: 2px solid var(--silver-light);
+            padding: 6px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .lcd {
+            background: black;
+            color: red;
+            font-family: "Courier New", monospace;
+            font-weight: bold;
+            font-size: 1.6rem;
+            padding: 2px 6px;
+            min-width: 56px;
+            text-align: center;
+            border-top: 2px solid var(--silver-darker);
+            border-left: 2px solid var(--silver-darker);
+            border-right: 2px solid var(--silver-light);
+            border-bottom: 2px solid var(--silver-light);
+            letter-spacing: 2px;
+        }
+
+        .face-btn {
+            background: var(--silver);
+            border-top: 2px solid var(--silver-light);
+            border-left: 2px solid var(--silver-light);
+            border-right: 2px solid var(--silver-darker);
+            border-bottom: 2px solid var(--silver-darker);
+            width: 44px;
+            height: 44px;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .face-btn:active {
+            border-top: 2px solid var(--silver-darker);
+            border-left: 2px solid var(--silver-darker);
+            border-right: 2px solid var(--silver-light);
+            border-bottom: 2px solid var(--silver-light);
+        }
+
+        .board {
+            display: grid;
+            border-top: 3px solid var(--silver-darker);
+            border-left: 3px solid var(--silver-darker);
+            border-right: 3px solid var(--silver-light);
+            border-bottom: 3px solid var(--silver-light);
+            touch-action: manipulation;
+        }
+
+        .cell {
+            width: 28px;
+            height: 28px;
+            background: var(--silver);
+            border-top: 3px solid var(--silver-light);
+            border-left: 3px solid var(--silver-light);
+            border-right: 3px solid var(--silver-darker);
+            border-bottom: 3px solid var(--silver-darker);
+            font-family: "Courier New", monospace;
+            font-weight: bold;
+            font-size: 1rem;
+            line-height: 22px;
+            color: black;
+            cursor: pointer;
+            padding: 0;
+            text-align: center;
+        }
+
+        .cell.revealed {
+            background: var(--silver);
+            border: 1px solid var(--silver-dark);
+            cursor: default;
+        }
+
+        .cell.flagged::before {
+            content: "♪";
+            color: red;
+            font-size: 1.1rem;
+        }
+
+        .cell.mine.revealed {
+            background: red;
+        }
+
+        .cell.mine.revealed::before {
+            content: "✱";
+            color: black;
+            font-size: 1.1rem;
+        }
+
+        .cell.wrong::before {
+            content: "✕";
+            color: red;
+            font-weight: bold;
+        }
+
+        .n1 { color: blue; }
+        .n2 { color: green; }
+        .n3 { color: red; }
+        .n4 { color: darkblue; }
+        .n5 { color: maroon; }
+        .n6 { color: teal; }
+        .n7 { color: black; }
+        .n8 { color: gray; }
+
+        .difficulty {
+            margin: 16px auto 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .retro-btn {
+            background: silver;
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 8px 14px;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: monospace;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .retro-btn:active,
+        .retro-btn.active {
+            border-top: 2px solid black;
+            border-left: 2px solid black;
+            border-right: 2px solid white;
+            border-bottom: 2px solid white;
+        }
+
+        .footer {
+            margin-top: 24px;
+            color: cyan;
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: yellow;
+        }
+
+        .legend {
+            color: lime;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 14px;
+            opacity: 0.85;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.04); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="marquee-container">
+        <marquee scrollamount="10">
+            *** BASSWEEPER v1.0 *** AVOID THE BLOWN SPEAKERS *** FLAG WITH A NOTE ♪ *** A WISEMAN RECORDS JOINT ***
+        </marquee>
+    </div>
+
+    <h1>BASSWEEPER</h1>
+    <p class="subtitle">!!! DON'T BLOW THE SPEAKERS !!!</p>
+
+    <div class="game" id="game">
+        <div class="hud">
+            <div class="lcd" id="mineCounter">010</div>
+            <button class="face-btn" id="faceBtn" aria-label="New game">🙂</button>
+            <div class="lcd" id="timer">000</div>
+        </div>
+        <div class="board" id="board"></div>
+    </div>
+
+    <p class="legend">CLICK = REVEAL &nbsp;·&nbsp; RIGHT-CLICK / LONG-PRESS = FLAG ♪</p>
+
+    <div class="difficulty">
+        <button class="retro-btn active" data-diff="easy">7" Single (9×9)</button>
+        <button class="retro-btn" data-diff="med">LP (16×16)</button>
+        <button class="retro-btn" data-diff="hard">Box Set (16×30)</button>
+    </div>
+
+    <p class="footer">
+        <a href="/">&lt;&lt; BACK TO WISEMAN RECORDS</a>
+    </p>
+
+    <script>
+        const DIFFICULTIES = {
+            easy: { rows: 9, cols: 9, mines: 10 },
+            med: { rows: 16, cols: 16, mines: 40 },
+            hard: { rows: 16, cols: 30, mines: 99 },
+        };
+
+        const boardEl = document.getElementById("board");
+        const mineCounterEl = document.getElementById("mineCounter");
+        const timerEl = document.getElementById("timer");
+        const faceBtn = document.getElementById("faceBtn");
+
+        let cfg = DIFFICULTIES.easy;
+        let grid = [];
+        let revealedCount = 0;
+        let flaggedCount = 0;
+        let started = false;
+        let over = false;
+        let won = false;
+        let timerInterval = null;
+        let seconds = 0;
+        let pressTimer = null;
+        let suppressClick = false;
+
+        function pad(n) {
+            n = Math.max(-99, Math.min(999, n));
+            const s = Math.abs(n).toString().padStart(n < 0 ? 2 : 3, "0");
+            return n < 0 ? "-" + s : s;
+        }
+
+        function buildGrid() {
+            grid = [];
+            for (let r = 0; r < cfg.rows; r++) {
+                const row = [];
+                for (let c = 0; c < cfg.cols; c++) {
+                    row.push({
+                        mine: false,
+                        revealed: false,
+                        flagged: false,
+                        adj: 0,
+                    });
+                }
+                grid.push(row);
+            }
+        }
+
+        function placeMines(safeR, safeC) {
+            let placed = 0;
+            while (placed < cfg.mines) {
+                const r = Math.floor(Math.random() * cfg.rows);
+                const c = Math.floor(Math.random() * cfg.cols);
+                if (grid[r][c].mine) continue;
+                if (Math.abs(r - safeR) <= 1 && Math.abs(c - safeC) <= 1) continue;
+                grid[r][c].mine = true;
+                placed++;
+            }
+            for (let r = 0; r < cfg.rows; r++) {
+                for (let c = 0; c < cfg.cols; c++) {
+                    if (grid[r][c].mine) continue;
+                    let n = 0;
+                    for (let dr = -1; dr <= 1; dr++) {
+                        for (let dc = -1; dc <= 1; dc++) {
+                            const nr = r + dr, nc = c + dc;
+                            if (nr < 0 || nr >= cfg.rows || nc < 0 || nc >= cfg.cols) continue;
+                            if (grid[nr][nc].mine) n++;
+                        }
+                    }
+                    grid[r][c].adj = n;
+                }
+            }
+        }
+
+        function render() {
+            boardEl.style.gridTemplateColumns = `repeat(${cfg.cols}, 28px)`;
+            boardEl.innerHTML = "";
+            for (let r = 0; r < cfg.rows; r++) {
+                for (let c = 0; c < cfg.cols; c++) {
+                    const cell = grid[r][c];
+                    const btn = document.createElement("button");
+                    btn.className = "cell";
+                    btn.dataset.r = r;
+                    btn.dataset.c = c;
+                    if (cell.flagged && !cell.revealed) btn.classList.add("flagged");
+                    if (cell.revealed) {
+                        btn.classList.add("revealed");
+                        if (cell.mine) {
+                            btn.classList.add("mine");
+                        } else if (cell.adj > 0) {
+                            btn.textContent = cell.adj;
+                            btn.classList.add("n" + cell.adj);
+                        }
+                    }
+                    if (over && !won) {
+                        if (cell.mine && !cell.flagged) {
+                            btn.classList.add("revealed", "mine");
+                        }
+                        if (!cell.mine && cell.flagged) {
+                            btn.classList.add("revealed", "wrong");
+                        }
+                    }
+                    boardEl.appendChild(btn);
+                }
+            }
+            mineCounterEl.textContent = pad(cfg.mines - flaggedCount);
+        }
+
+        function reveal(r, c) {
+            const cell = grid[r][c];
+            if (cell.revealed || cell.flagged) return;
+            cell.revealed = true;
+            revealedCount++;
+            if (cell.mine) {
+                over = true;
+                stopTimer();
+                faceBtn.textContent = "💀";
+                render();
+                return;
+            }
+            if (cell.adj === 0) {
+                for (let dr = -1; dr <= 1; dr++) {
+                    for (let dc = -1; dc <= 1; dc++) {
+                        if (dr === 0 && dc === 0) continue;
+                        const nr = r + dr, nc = c + dc;
+                        if (nr < 0 || nr >= cfg.rows || nc < 0 || nc >= cfg.cols) continue;
+                        if (!grid[nr][nc].revealed) reveal(nr, nc);
+                    }
+                }
+            }
+        }
+
+        function checkWin() {
+            const total = cfg.rows * cfg.cols;
+            if (revealedCount === total - cfg.mines) {
+                over = true;
+                won = true;
+                stopTimer();
+                faceBtn.textContent = "😎";
+                for (let r = 0; r < cfg.rows; r++) {
+                    for (let c = 0; c < cfg.cols; c++) {
+                        if (grid[r][c].mine) {
+                            grid[r][c].flagged = true;
+                        }
+                    }
+                }
+                flaggedCount = cfg.mines;
+                render();
+            }
+        }
+
+        function startTimer() {
+            seconds = 0;
+            timerEl.textContent = pad(0);
+            timerInterval = setInterval(() => {
+                seconds++;
+                timerEl.textContent = pad(seconds);
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function newGame() {
+            stopTimer();
+            buildGrid();
+            revealedCount = 0;
+            flaggedCount = 0;
+            started = false;
+            over = false;
+            won = false;
+            seconds = 0;
+            timerEl.textContent = pad(0);
+            faceBtn.textContent = "🙂";
+            render();
+        }
+
+        function handleReveal(r, c) {
+            if (over) return;
+            if (!started) {
+                placeMines(r, c);
+                started = true;
+                startTimer();
+            }
+            reveal(r, c);
+            if (!over) checkWin();
+            render();
+        }
+
+        function handleFlag(r, c) {
+            if (over || !started) {
+                if (!started) {
+                    placeMines(r, c);
+                    started = true;
+                    startTimer();
+                } else {
+                    return;
+                }
+            }
+            const cell = grid[r][c];
+            if (cell.revealed) return;
+            cell.flagged = !cell.flagged;
+            flaggedCount += cell.flagged ? 1 : -1;
+            render();
+        }
+
+        boardEl.addEventListener("click", (e) => {
+            const t = e.target.closest(".cell");
+            if (!t) return;
+            if (suppressClick) { suppressClick = false; return; }
+            handleReveal(+t.dataset.r, +t.dataset.c);
+        });
+
+        boardEl.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            const t = e.target.closest(".cell");
+            if (!t) return;
+            handleFlag(+t.dataset.r, +t.dataset.c);
+        });
+
+        boardEl.addEventListener("touchstart", (e) => {
+            const t = e.target.closest(".cell");
+            if (!t) return;
+            pressTimer = setTimeout(() => {
+                suppressClick = true;
+                handleFlag(+t.dataset.r, +t.dataset.c);
+                pressTimer = null;
+            }, 350);
+        }, { passive: true });
+
+        boardEl.addEventListener("touchend", () => {
+            if (pressTimer) {
+                clearTimeout(pressTimer);
+                pressTimer = null;
+            }
+        });
+
+        boardEl.addEventListener("touchmove", () => {
+            if (pressTimer) {
+                clearTimeout(pressTimer);
+                pressTimer = null;
+            }
+        });
+
+        faceBtn.addEventListener("click", newGame);
+
+        document.querySelectorAll(".difficulty .retro-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".difficulty .retro-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                cfg = DIFFICULTIES[btn.dataset.diff];
+                newGame();
+            });
+        });
+
+        newGame();
+    </script>
+
+</body>
+
+</html>
