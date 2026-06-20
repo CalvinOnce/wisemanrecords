@@ -1385,7 +1385,6 @@ We're in for the long haul.</div>
             }
 
             async function postPlay(num) {
-                const sessionKey = 'wiseman-counted-' + num;
                 try {
                     const r = await fetch(COUNT_API + '?track=' + encodeURIComponent(num), { method: 'POST' });
                     if (!r.ok) {
@@ -1396,7 +1395,6 @@ We're in for the long haul.</div>
                     const data = await r.json();
                     setCount(num, data.count);
                     bumpCount(num);
-                    try { sessionStorage.setItem(sessionKey, '1'); } catch (_) { }
                 } catch (e) {
                     console.warn('[plays] POST threw', e);
                     countedThisLoad.delete(String(num));
@@ -1409,11 +1407,6 @@ We're in for the long haul.</div>
                 if (audio.currentTime < PLAY_THRESHOLD) return;
                 const num = tracks[currentIndex].dataset.trackNum;
                 if (countedThisLoad.has(num)) return;
-                const sessionKey = 'wiseman-counted-' + num;
-                if (sessionStorage.getItem(sessionKey)) {
-                    countedThisLoad.add(num);
-                    return;
-                }
                 countedThisLoad.add(num);
                 postPlay(num);
             }
