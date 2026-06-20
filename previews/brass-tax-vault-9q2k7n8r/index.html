@@ -213,6 +213,32 @@
             color: #d6f5d6;
         }
 
+        .easter-toast {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.85);
+            background: black;
+            color: lime;
+            border: 3px solid magenta;
+            box-shadow: 0 0 28px magenta;
+            padding: 16px 28px;
+            font-family: monospace;
+            font-size: 1.15rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .easter-toast.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
         .track.is-playing {
             border-color: magenta;
             box-shadow: 0 0 18px magenta;
@@ -1361,14 +1387,18 @@ We're in for the long haul.</div>
     <script>
         (function () {
             const STORAGE_KEY = 'wiseman-brass-tax-player';
+            const STATS_STORAGE_KEY = 'wiseman-brass-tax-stats-mode';
             const COUNT_API = '/api/plays';
             const PLAY_THRESHOLD = 15;
-            const STATS_MODE = new URLSearchParams(location.search).get('stats') === '1';
             const MILESTONE_LABELS = { p25: '25%', p50: '50%', p75: '75%', complete: 'done' };
             const audio = document.getElementById('audio');
             const tracks = Array.from(document.querySelectorAll('.track[data-src]'));
 
-            if (STATS_MODE) document.body.classList.add('stats-mode');
+            // Stats mode is enabled if ?stats=1 OR the easter-egg flag is in localStorage.
+            const urlStats = new URLSearchParams(location.search).get('stats') === '1';
+            let storedStats = false;
+            try { storedStats = localStorage.getItem(STATS_STORAGE_KEY) === '1'; } catch (_) { }
+            if (urlStats || storedStats) document.body.classList.add('stats-mode');
 
             tracks.forEach((t, i) => {
                 t.dataset.trackNum = String(i + 1);
@@ -1379,7 +1409,7 @@ We're in for the long haul.</div>
                     span.textContent = '-- plays';
                     row.appendChild(span);
                 }
-                if (STATS_MODE && !t.querySelector('.stats-row')) {
+                if (!t.querySelector('.stats-row')) {
                     const stats = document.createElement('div');
                     stats.className = 'stats-row';
                     stats.innerHTML = [
@@ -1392,6 +1422,39 @@ We're in for the long haul.</div>
                     t.appendChild(stats);
                 }
             });
+
+            // Easter egg: five rapid clicks on the visitor counter toggle stats mode.
+            (function () {
+                const counterEl = document.querySelector('.counter');
+                if (!counterEl) return;
+                let clicks = [];
+                counterEl.addEventListener('click', () => {
+                    const now = Date.now();
+                    clicks = clicks.filter(t => now - t < 3000);
+                    clicks.push(now);
+                    if (clicks.length >= 5) {
+                        clicks = [];
+                        const nowOn = document.body.classList.toggle('stats-mode');
+                        try {
+                            if (nowOn) localStorage.setItem(STATS_STORAGE_KEY, '1');
+                            else localStorage.removeItem(STATS_STORAGE_KEY);
+                        } catch (_) { }
+                        flashEaster(nowOn ? '> STATS MODE ENABLED' : '> STATS MODE DISABLED');
+                    }
+                });
+            })();
+
+            function flashEaster(text) {
+                const toast = document.createElement('div');
+                toast.className = 'easter-toast';
+                toast.textContent = text;
+                document.body.appendChild(toast);
+                requestAnimationFrame(() => toast.classList.add('show'));
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 400);
+                }, 1600);
+            }
 
             function setCount(num, n) {
                 const t = tracks.find(t => t.dataset.trackNum === String(num));
@@ -1411,7 +1474,6 @@ We're in for the long haul.</div>
             }
 
             function renderStats(num, trackData) {
-                if (!STATS_MODE) return;
                 const t = tracks.find(t => t.dataset.trackNum === String(num));
                 if (!t) return;
                 const stats = t.querySelector('.stats-row');
@@ -1431,7 +1493,6 @@ We're in for the long haul.</div>
             }
 
             function bumpStat(num, milestone, count) {
-                if (!STATS_MODE) return;
                 const t = tracks.find(t => t.dataset.trackNum === String(num));
                 if (!t) return;
                 const stats = t.querySelector('.stats-row');
