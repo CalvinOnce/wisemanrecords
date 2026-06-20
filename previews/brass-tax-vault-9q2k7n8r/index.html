@@ -1389,7 +1389,6 @@ We're in for the long haul.</div>
                     const r = await fetch(COUNT_API + '?track=' + encodeURIComponent(num), { method: 'POST' });
                     if (!r.ok) {
                         console.warn('[plays] POST failed', r.status, await r.text().catch(() => ''));
-                        countedThisLoad.delete(String(num));
                         return;
                     }
                     const data = await r.json();
@@ -1397,17 +1396,16 @@ We're in for the long haul.</div>
                     bumpCount(num);
                 } catch (e) {
                     console.warn('[plays] POST threw', e);
-                    countedThisLoad.delete(String(num));
                 }
             }
 
-            const countedThisLoad = new Set();
+            let pendingCount = false;
             function maybeMarkPlay() {
+                if (!pendingCount) return;
                 if (currentIndex < 0) return;
                 if (audio.currentTime < PLAY_THRESHOLD) return;
+                pendingCount = false;
                 const num = tracks[currentIndex].dataset.trackNum;
-                if (countedThisLoad.has(num)) return;
-                countedThisLoad.add(num);
                 postPlay(num);
             }
             const bar = {
@@ -1567,7 +1565,10 @@ We're in for the long haul.</div>
                 }
             });
 
-            audio.addEventListener('play', render);
+            audio.addEventListener('play', () => {
+                if (audio.currentTime < 1) pendingCount = true;
+                render();
+            });
             audio.addEventListener('pause', () => { render(); saveState(); });
 
             audio.addEventListener('ended', () => {
