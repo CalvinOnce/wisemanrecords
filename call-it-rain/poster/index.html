@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call It Rain — The Brass Tax (Broadside)</title>
+    <meta name="description" content="Call It Rain by The Brass Tax. Free download. Not for sale, never was.">
+    <link rel="icon" type="image/png" href="../../favicon.png">
+
+    <meta property="og:type" content="music.song">
+    <meta property="og:title" content="Call It Rain — The Brass Tax">
+    <meta property="og:description" content="Free download. Spit in our eyes and call it rain.">
+    <meta property="og:image" content="../cover.png">
+    <meta property="og:site_name" content="The Brass Tax">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rye&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Special+Elite&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --paper: #c79a2b;
+            --paper-dark: #a47c1d;
+            --paper-deep: #6d4f15;
+            --ink: #1a1308;
+            --ink-soft: #2c220f;
+            --blood: #8a1c12;
+            --blood-deep: #5a1209;
+            --cream: #f0d57b;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--paper);
+            color: var(--ink);
+            font-family: "IM Fell English", "Iowan Old Style", Georgia, "Times New Roman", serif;
+            font-size: 18px;
+            line-height: 1.55;
+        }
+
+        /* paper grain noise overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.35;
+            mix-blend-mode: multiply;
+            z-index: 1;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.07  0 0 0 0 0.04  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        }
+
+        /* light rays / fold-lines down the page, a faint vertical "rain" hatch */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.07;
+            z-index: 1;
+            background-image: repeating-linear-gradient(
+                12deg,
+                transparent 0px,
+                transparent 11px,
+                var(--ink) 11px,
+                var(--ink) 12px
+            );
+        }
+
+        .top-bar {
+            position: relative;
+            z-index: 2;
+            background: var(--ink);
+            color: var(--paper);
+            font-family: "IM Fell English SC", "IM Fell English", serif;
+            font-size: 0.95rem;
+            letter-spacing: 0.18em;
+            text-align: center;
+            padding: 10px 16px;
+            border-bottom: 3px double var(--paper-deep);
+        }
+
+        .top-bar .sep { color: var(--blood); margin: 0 14px; }
+
+        .wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 36px 28px 80px;
+        }
+
+        /* The "wheatpasted poster" treatment for the cover */
+        .poster-frame {
+            position: relative;
+            margin: 0 auto 28px;
+            max-width: 540px;
+            transform: rotate(-1.2deg);
+        }
+        .poster-frame .tape {
+            position: absolute;
+            width: 110px;
+            height: 22px;
+            background: rgba(244, 220, 140, 0.55);
+            border: 1px solid rgba(26, 19, 8, 0.18);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.18);
+            z-index: 3;
+        }
+        .poster-frame .tape.tl { top: -10px; left: -18px; transform: rotate(-22deg); }
+        .poster-frame .tape.tr { top: -8px; right: -18px; transform: rotate(28deg); }
+        .poster-frame .tape.bl { bottom: -10px; left: 30px; transform: rotate(8deg); width: 80px; height: 18px; }
+
+        .poster-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 2px solid var(--ink);
+            box-shadow:
+                0 0 0 6px var(--paper-dark),
+                0 14px 32px rgba(26, 19, 8, 0.5),
+                0 2px 0 rgba(26, 19, 8, 0.4) inset;
+        }
+
+        /* Banner-style headline, echoing the gold band at the bottom of the cover */
+        .title-banner {
+            background: var(--ink);
+            color: var(--paper);
+            text-align: center;
+            padding: 18px 16px 14px;
+            margin: 0 -4px 4px;
+            transform: rotate(-0.4deg);
+            border-top: 3px double var(--blood);
+            border-bottom: 3px double var(--blood);
+            box-shadow: 0 6px 0 rgba(0,0,0,0.18);
+        }
+        h1 {
+            font-family: "Rye", "Rockwell", "Courier New", serif;
+            font-weight: 400;
+            font-size: clamp(2.6rem, 9vw, 4.6rem);
+            letter-spacing: 0.04em;
+            margin: 0;
+            line-height: 1;
+            text-shadow:
+                2px 2px 0 var(--blood-deep),
+                4px 4px 0 rgba(0,0,0,0.4);
+        }
+        .by-line {
+            text-align: center;
+            font-family: "IM Fell English SC", serif;
+            letter-spacing: 0.25em;
+            font-size: 0.95rem;
+            margin: 18px 0 28px;
+            color: var(--ink);
+        }
+        .by-line .star { color: var(--blood); margin: 0 10px; }
+
+        /* Section ornament — hand-set rule with a center diamond */
+        .rule {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 28px 0;
+            color: var(--ink);
+        }
+        .rule::before, .rule::after {
+            content: '';
+            flex: 1;
+            border-top: 1px solid var(--ink);
+            opacity: 0.6;
+        }
+        .rule span {
+            padding: 0 14px;
+            font-family: "IM Fell English SC", serif;
+            letter-spacing: 0.22em;
+            font-size: 0.85rem;
+        }
+
+        /* Manifesto / broadside body type */
+        .manifesto {
+            font-family: "IM Fell English", Georgia, serif;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            text-align: justify;
+            hyphens: auto;
+            margin: 0 0 22px;
+            color: var(--ink);
+        }
+        .manifesto p { margin: 0 0 16px; }
+        .manifesto p::first-letter {
+            font-family: "Rye", serif;
+            font-size: 3.2em;
+            float: left;
+            line-height: 0.85;
+            padding: 6px 10px 0 0;
+            color: var(--blood);
+        }
+        .manifesto p + p::first-letter {
+            font-family: "IM Fell English", serif;
+            font-size: 1em;
+            float: none;
+            line-height: inherit;
+            padding: 0;
+            color: inherit;
+        }
+        .manifesto em { font-style: italic; color: var(--ink-soft); }
+        .manifesto strong { font-weight: 400; color: var(--blood); }
+        .manifesto .sig {
+            display: block;
+            margin-top: 18px;
+            text-align: right;
+            font-family: "IM Fell English SC", serif;
+            letter-spacing: 0.18em;
+            color: var(--ink-soft);
+        }
+
+        /* Audio "cabinet" */
+        .player {
+            background: var(--ink);
+            border: 3px solid var(--ink);
+            box-shadow:
+                inset 0 0 0 4px var(--paper),
+                inset 0 0 0 6px var(--ink),
+                0 8px 0 rgba(0,0,0,0.25);
+            padding: 18px 18px 14px;
+            margin: 22px 0;
+            position: relative;
+        }
+        .player::before {
+            content: 'PRESS PLAY';
+            position: absolute;
+            top: -12px;
+            left: 22px;
+            background: var(--paper);
+            padding: 0 10px;
+            font-family: "IM Fell English SC", serif;
+            letter-spacing: 0.3em;
+            font-size: 0.78rem;
+            color: var(--ink);
+        }
+        .player audio {
+            width: 100%;
+            display: block;
+            filter: sepia(0.6) hue-rotate(-15deg) saturate(1.2);
+        }
+
+        /* Download — rubber stamp */
+        .take-it-zone {
+            text-align: center;
+            margin: 30px 0 14px;
+            position: relative;
+        }
+        .stamp-btn {
+            display: inline-block;
+            font-family: "Rye", "Rockwell", serif;
+            font-size: 1.6rem;
+            letter-spacing: 0.06em;
+            color: var(--blood);
+            background: transparent;
+            border: 5px double var(--blood);
+            padding: 14px 28px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transform: rotate(-2deg);
+            box-shadow: inset 0 0 0 2px transparent;
+            transition: transform 0.15s, color 0.15s;
+            position: relative;
+        }
+        .stamp-btn::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='80'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -0.9 1'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' fill='white'/></svg>");
+            mix-blend-mode: lighten;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+        .stamp-btn:hover {
+            transform: rotate(-2deg) scale(1.03);
+            color: var(--blood-deep);
+        }
+        .take-it-note {
+            font-family: "Special Elite", "Courier New", monospace;
+            font-size: 0.92rem;
+            letter-spacing: 0.04em;
+            color: var(--ink-soft);
+            margin: 14px 0 0;
+            text-align: center;
+        }
+
+        /* "Steal This Song" diagonal stamp, slapped on top of the page */
+        .steal-stamp {
+            position: relative;
+            display: inline-block;
+            margin: 26px auto 6px;
+            font-family: "Rye", serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.18em;
+            color: var(--blood);
+            border: 4px double var(--blood);
+            padding: 10px 22px;
+            text-transform: uppercase;
+            transform: rotate(5deg);
+            opacity: 0.92;
+        }
+        .steal-stamp::before {
+            content: '⌗ ';
+            color: var(--blood);
+        }
+        .steal-stamp::after {
+            content: ' ⌗';
+            color: var(--blood);
+        }
+
+        /* Lyrics block — set like a printed program */
+        .lyrics {
+            margin: 36px 0 8px;
+            padding: 26px 28px;
+            background: rgba(26, 19, 8, 0.06);
+            border-top: 4px double var(--ink);
+            border-bottom: 4px double var(--ink);
+            font-family: "IM Fell English", Georgia, serif;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--ink);
+            white-space: pre-line;
+            text-align: left;
+            column-count: 1;
+        }
+        .lyrics-title {
+            text-align: center;
+            font-family: "Rye", serif;
+            font-size: 1.6rem;
+            letter-spacing: 0.04em;
+            margin: 0 0 16px;
+            color: var(--ink);
+        }
+        .lyrics-title::before, .lyrics-title::after {
+            content: '✦';
+            color: var(--blood);
+            margin: 0 14px;
+            font-size: 0.8em;
+            vertical-align: middle;
+        }
+        .lyrics .chorus { font-style: italic; }
+        .lyrics .break { display: block; height: 0.6em; }
+
+        @media (min-width: 720px) {
+            .lyrics { column-count: 2; column-gap: 34px; column-rule: 1px solid rgba(26,19,8,0.25); }
+        }
+
+        /* Diagonal hatched "rain" divider — echoes the rays from the pulpit */
+        .rain-divider {
+            height: 26px;
+            margin: 30px 0;
+            background-image: repeating-linear-gradient(
+                75deg,
+                transparent 0,
+                transparent 6px,
+                var(--ink) 6px,
+                var(--ink) 7px
+            );
+            opacity: 0.35;
+        }
+
+        /* Footer */
+        .colophon {
+            margin-top: 40px;
+            text-align: center;
+            font-family: "IM Fell English SC", serif;
+            letter-spacing: 0.18em;
+            font-size: 0.82rem;
+            color: var(--ink-soft);
+            line-height: 1.9;
+        }
+        .colophon .dot { color: var(--blood); margin: 0 8px; }
+        .colophon a { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--ink-soft); }
+
+        /* Mobile spacing */
+        @media (max-width: 520px) {
+            .wrapper { padding: 24px 16px 60px; }
+            .poster-frame { transform: rotate(-0.6deg); }
+            .stamp-btn { font-size: 1.25rem; padding: 12px 22px; }
+            .top-bar { letter-spacing: 0.12em; font-size: 0.78rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        NO PERMISSION NEEDED
+        <span class="sep">✦</span>
+        PRESS THIS BROADSIDE EVERYWHERE
+        <span class="sep">✦</span>
+        NOT FOR SALE / NEVER WAS
+    </div>
+
+    <div class="wrapper">
+
+        <div class="poster-frame">
+            <span class="tape tl"></span>
+            <span class="tape tr"></span>
+            <span class="tape bl"></span>
+            <img src="../cover.png" alt="Call It Rain — The Brass Tax">
+        </div>
+
+        <div class="title-banner">
+            <h1>Call It Rain</h1>
+        </div>
+        <p class="by-line">
+            A Broadside <span class="star">✦</span> The Brass Tax <span class="star">✦</span> Free Forever
+        </p>
+
+        <div class="rule"><span>The Statement</span></div>
+
+        <div class="manifesto">
+            <p>We're <strong>The Brass Tax</strong>. This is a song. The file is right down there. Take it.</p>
+            <p>Not signed. Not optimized. No brand kit. No merch drop. No link tree. No newsletter. No <em>&ldquo;join the list to be the first to hear&rdquo;</em> &mdash; you're hearing it. That's the whole funnel.</p>
+            <p>If a streamer ever cuts us a check, it gets donated or set on fire. <strong>We'll show you the smoke.</strong></p>
+            <p>Turn it up. Play it for somebody who needs it. Play it for somebody who'll hate it. We don't care which.</p>
+            <span class="sig">&mdash; The Brass Tax</span>
+        </div>
+
+        <div class="rain-divider"></div>
+
+        <div class="player">
+            <audio controls preload="metadata" src="../call-it-rain.mp3">
+                Your browser can't play the file.
+                <a href="../call-it-rain.mp3" style="color: var(--paper);">Grab it</a> instead.
+            </audio>
+        </div>
+
+        <div class="take-it-zone">
+            <a class="stamp-btn" href="../call-it-rain.mp3" download="The Brass Tax - Call It Rain.mp3">
+                ↓ Take the File
+            </a>
+            <p class="take-it-note">no email. no signup. no tracking. right-click and rip it if you want.</p>
+            <div class="steal-stamp">Steal This Song</div>
+        </div>
+
+        <div class="rule"><span>The Lyrics</span></div>
+
+        <div class="lyrics">
+<p class="lyrics-title">Call It Rain</p>
+He calls us deplorable from the pulpit, from the stage
+And we whoop until we're hoarse for him &mdash; there's no one half so great (so great!)
+He sold us holy water that was tap and turpentine
+We drank it down and blessed him, and we'd buy it one more time
+He says the rich are righteous and the hungry are to blame
+We lost the farm to prove it, and we'd lose it all the same
+He swore to us the sky was falling, falling to the ground
+Then swore it never fell at all &mdash; we cheered for both, and how!
+<span class="break"></span>
+<em>Whatever you need, we'll give you &mdash; our savings, our sense, our sons
+Spit in our eyes and call it rain, we'll thank you when you're done
+Take it all and blame us, tell us lies and we'll agree
+'Cause it feels so good to follow, and it hurts too much to see</em>
+<span class="break"></span>
+He sells us hats and Bibles, sells us shoes and mobile phones (all gold!)
+We mortgaged grandma's headstone for a front-row golden throne
+He told us love our neighbor &mdash; then he told us name a foe
+We burned the Parsons' orchard, and we hummed a hymn, and oh&mdash;
+He says to doubt is treason, says a question is a sin
+So we shunned the ones who wondered, and we welcomed no one in
+He'll turn on us tomorrow, call us traitors, throw us through
+And we'll defend him to the grave &mdash; we'll say we knew it too
+<span class="break"></span>
+<em>Whatever you need, we'll give you &mdash; our savings, our sense, our sons
+Piss in our eyes and call it rain, we'll thank you when you're done
+Take it all and blame us, tell us lies and we'll agree
+'Cause it feels so good to follow, and it hurts too much to see</em>
+<span class="break"></span>
+Sometimes late at night a little voice gets in my head
+It whispers what he took from me, it counts my empty bed
+It says you gave him everything &mdash; now what'd he give you back?&mdash;
+...so I sing a little louder and I shove it down the crack
+'Cause if he lied then I'm a fool, and I can't bear to be
+So pour me one more sermon, sir &mdash; it hurts too much to see
+<span class="break"></span>
+<em>Whatever you need, we'll give you &mdash; our children, our truth, our names
+Light the whole world up for you and skank around the flames (Oi!)
+Take it all and thank you, and we'll deny it to the end
+'Cause it feels so good to follow &mdash; say you'll never leave us, friend</em>
+<span class="break"></span>
+(We'd do it again) we'd do it again
+(We'd do it again) we'd do it again
+Spit in our eyes &mdash; and we'll call it rain
+We'd do it again, we'd do it again...
+        </div>
+
+        <div class="rain-divider"></div>
+
+        <div class="colophon">
+            CALL IT RAIN <span class="dot">✦</span> THE BRASS TAX <span class="dot">✦</span> A BROADSIDE<br>
+            NO PERMISSION NEEDED <span class="dot">✦</span> NO COPYRIGHT WE'LL ENFORCE <span class="dot">✦</span> BURN COPIES, PAINT IT ON A WALL<br>
+            PRESSED ON <a href="https://wisemanrecords.com/">wisemanrecords.com</a> BECAUSE THE FILE HAD TO LIVE SOMEWHERE
+        </div>
+
+    </div>
+
+</body>
+
+</html>
