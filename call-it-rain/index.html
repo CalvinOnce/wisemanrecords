@@ -6,20 +6,15 @@
     <meta name="referrer" content="no-referrer">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Call It Rain — Wiseman Records</title>
-    <meta name="description" content="Call It Rain — the new protest-ska single from Wiseman Records. A biting anthem about cheering on the people robbing you blind. The first single from The Brass Tax.">
+    <title>Call It Rain — The Brass Tax</title>
+    <meta name="description" content="Call It Rain by The Brass Tax. Free download. Not for sale, never was. Take it, burn a copy, give it to someone who needs it.">
     <link rel="icon" type="image/png" href="../favicon.png">
 
     <meta property="og:type" content="music.song">
-    <meta property="og:title" content="Call It Rain — Wiseman Records">
-    <meta property="og:description" content="The new protest-ska single from Wiseman Records. Spit in our eyes and call it rain — we'll thank you when you're done.">
+    <meta property="og:title" content="Call It Rain — The Brass Tax">
+    <meta property="og:description" content="Free download. Spit in our eyes and call it rain.">
     <meta property="og:image" content="cover.png">
-    <meta property="og:site_name" content="Wiseman Records">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Call It Rain — Wiseman Records">
-    <meta name="twitter:description" content="The new protest-ska single from Wiseman Records.">
-    <meta name="twitter:image" content="cover.png">
+    <meta property="og:site_name" content="The Brass Tax">
 
     <style>
         body {
@@ -55,12 +50,12 @@
             animation: pulse 0.5s infinite alternate;
         }
 
-        h2.sub {
+        h2.by {
             color: cyan;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            margin: 6px 0 0;
+            margin: 8px 0 0;
         }
 
         .marquee-container {
@@ -79,6 +74,7 @@
             color: magenta;
             font-weight: bold;
             font-size: 1.5rem;
+            margin: 14px 0 0;
         }
 
         .album-art {
@@ -94,28 +90,88 @@
             transform: rotate(360deg);
         }
 
-        .hype {
+        .manifesto {
             background: black;
             border: 3px dashed magenta;
             color: yellow;
             font-family: monospace;
             font-size: 1rem;
-            line-height: 1.55;
+            line-height: 1.65;
             margin: 20px auto;
-            padding: 14px 18px;
+            padding: 16px 18px;
             max-width: 90%;
             text-align: left;
         }
 
-        .hype b {
+        .manifesto b {
             color: magenta;
         }
 
-        .hype .lead {
-            color: cyan;
-            font-size: 1.1rem;
+        .manifesto .sig {
             display: block;
-            margin-bottom: 8px;
+            margin-top: 14px;
+            color: cyan;
+            letter-spacing: 2px;
+        }
+
+        .player {
+            margin: 26px auto 8px;
+            max-width: 90%;
+            background: rgba(0, 0, 40, 0.7);
+            border: 4px ridge gold;
+            padding: 16px;
+        }
+
+        .player audio {
+            width: 100%;
+            display: block;
+        }
+
+        .download-zone {
+            margin: 20px auto 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            max-width: 90%;
+        }
+
+        .big-dl {
+            background: magenta;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            border-right: 3px solid black;
+            border-bottom: 3px solid black;
+            padding: 18px 30px;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: monospace;
+            text-transform: uppercase;
+            font-size: 1.15rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .big-dl:hover {
+            background: yellow;
+        }
+
+        .big-dl:active {
+            border-top: 3px solid black;
+            border-left: 3px solid black;
+            border-right: 3px solid white;
+            border-bottom: 3px solid white;
+        }
+
+        .dl-note {
+            margin: 0 auto 20px;
+            color: lime;
+            font-family: monospace;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            max-width: 90%;
         }
 
         .pull-quote {
@@ -140,91 +196,6 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             text-shadow: none;
-        }
-
-        .specs {
-            display: inline-block;
-            margin: 10px auto 20px;
-            padding: 12px 18px;
-            background: #050530;
-            border: 2px solid cyan;
-            color: lime;
-            font-family: monospace;
-            font-size: 0.95rem;
-            text-align: left;
-            line-height: 1.7;
-        }
-
-        .specs .k {
-            color: cyan;
-            display: inline-block;
-            min-width: 110px;
-        }
-
-        .specs .v {
-            color: yellow;
-        }
-
-        .specs .v.tba {
-            color: magenta;
-            animation: blinker 0.6s linear infinite;
-        }
-
-        .button-zone {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin: 30px auto 10px;
-            flex-wrap: wrap;
-            max-width: 90%;
-        }
-
-        .retro-btn {
-            background: silver;
-            border-top: 2px solid white;
-            border-left: 2px solid white;
-            border-right: 2px solid black;
-            border-bottom: 2px solid black;
-            padding: 12px 22px;
-            color: black;
-            text-decoration: none;
-            font-weight: bold;
-            font-family: monospace;
-            text-transform: uppercase;
-            cursor: pointer;
-            font-size: 0.95rem;
-        }
-
-        .retro-btn:active {
-            border-top: 2px solid black;
-            border-left: 2px solid black;
-            border-right: 2px solid white;
-            border-bottom: 2px solid white;
-        }
-
-        .retro-btn.primary {
-            background: magenta;
-            color: black;
-        }
-
-        .share-row {
-            margin: 20px auto;
-            color: cyan;
-            font-family: monospace;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-        }
-
-        .share-row a {
-            color: yellow;
-            text-decoration: none;
-            margin: 0 6px;
-            border-bottom: 1px dashed yellow;
-        }
-
-        .share-row a:hover {
-            color: magenta;
-            border-color: magenta;
         }
 
         .lyrics-box {
@@ -255,47 +226,13 @@
             height: 0.8rem;
         }
 
-        .toast {
-            position: fixed;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.85);
-            background: black;
-            color: lime;
-            border: 3px solid magenta;
-            box-shadow: 0 0 28px magenta;
-            padding: 16px 28px;
-            font-family: monospace;
-            font-size: 1.1rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            z-index: 100;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            pointer-events: none;
-            white-space: nowrap;
-        }
-
-        .toast.show {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .footer-link {
-            color: cyan;
-            font-family: monospace;
-            font-size: 0.9rem;
-            margin-top: 20px;
-        }
-
-        .footer-link a {
-            color: yellow;
-        }
-
-        .copyright {
-            font-size: 0.8rem;
+        .footer-block {
+            margin: 30px auto 0;
             color: gray;
-            margin-top: 30px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            max-width: 90%;
         }
 
         @keyframes blinker {
@@ -313,56 +250,44 @@
 
     <div class="marquee-container">
         <marquee scrollamount="12">
-            *** OUT NOW *** CALL IT RAIN *** WISEMAN RECORDS *** PROTEST SKA FOR A SOAKING SEASON ***
-            FIRST SINGLE FROM THE BRASS TAX *** STREAM IT LOUD *** WARNING: HORN STABS ***
+            *** CALL IT RAIN *** THE BRASS TAX *** TAKE IT *** BURN A COPY *** GIVE IT TO SOMEONE WHO NEEDS IT *** NOT FOR SALE / NEVER WAS ***
         </marquee>
     </div>
 
     <div class="wrapper">
         <br>
         <h1>Call It Rain</h1>
-        <h2 class="sub">A New Single From Wiseman Records</h2>
-        <p class="blink">!!! OUT NOW !!!</p>
+        <h2 class="by">by The Brass Tax</h2>
+        <p class="blink">!!! TAKE IT !!!</p>
 
-        <img src="cover.png" alt="Call It Rain — single artwork from Wiseman Records" class="album-art">
+        <img src="cover.png" alt="Call It Rain — The Brass Tax" class="album-art">
 
-        <div class="specs">
-            <div><span class="k">ARTIST:</span> <span class="v">The Brass Tax</span></div>
-            <div><span class="k">LABEL:</span> <span class="v">Wiseman Records</span></div>
-            <div><span class="k">FROM THE LP:</span> <span class="v">The Brass Tax</span></div>
-            <div><span class="k">GENRE:</span> <span class="v">Protest Ska / Punk</span></div>
-            <div><span class="k">STATUS:</span> <span class="v">OUT NOW</span></div>
+        <div class="manifesto">
+            we are <b>The Brass Tax</b>. we wrote a song about the crowd that cheers louder the harder it gets fleeced &mdash; about the believers who'd rather pour another sermon than admit the rain isn't rain.
+            <br><br>
+            the file is right down there. <b>take it.</b> burn a copy. give it to the neighbor. play it loud enough to wake somebody up.
+            <br><br>
+            it costs nothing because it was never supposed to. this is not a product. it's a warning.
+            <br><br>
+            stream it if you want. if a streamer ever sends a check our way, <b>that money gets donated or set on fire &mdash; dealer's choice.</b> we didn't write this to get paid. we'll post the receipts.
+            <span class="sig">&mdash; The Brass Tax</span>
         </div>
 
-        <div class="hype">
-            <span class="lead">&gt; THE TRACK:</span>
-            <b>Call It Rain</b> is the kind of song you put on a bumper sticker and a manifesto at the same time. A swaggering, horn-stabbing protest ska anthem about the crowd that <b>cheers louder the harder it gets fleeced</b> &mdash; the believers who'd rather pour another sermon than admit the rain isn't rain.
-            <br><br>
-            Wiseman Records cut its teeth on <b>HAMLIN LAKE FUNK</b> and the <b>heavy-bass faith</b>. This one's a different weather pattern. It's the first single off <b>The Brass Tax</b>, and it's a warning shot wrapped in a hook you'll be humming on the way home from getting hosed.
-            <br><br>
-            <span style="color: lime;">FOR FANS OF:</span> The Specials, Rancid, Streetlight Manifesto, anyone who's ever watched a man sell them their own water back.
+        <div class="player">
+            <audio controls preload="metadata" src="call-it-rain.mp3">
+                your browser can't play the file. <a href="call-it-rain.mp3" style="color: yellow;">download it instead.</a>
+            </audio>
         </div>
+
+        <div class="download-zone">
+            <a class="big-dl" href="call-it-rain.mp3" download="The Brass Tax - Call It Rain.mp3">&#x2B07; Download MP3 (Free)</a>
+        </div>
+        <p class="dl-note">no email. no signup. no tracking pixel. right-click is fine too.</p>
 
         <div class="pull-quote">
             &ldquo;Spit in our eyes and call it rain &mdash;<br>
             we'll thank you when you're done.&rdquo;
             <span class="who">&mdash; from the chorus</span>
-        </div>
-
-        <div class="button-zone">
-            <!-- TODO: replace href with the smart link (push.fm / linkfire / etc.) once it's live -->
-            <a href="#" class="retro-btn primary" id="streamBtn" onclick="streamPlaceholder(event)">Stream on All Platforms</a>
-            <a href="#lyrics" class="retro-btn">Read the Lyrics</a>
-            <a href="https://wisemanrecords.com/" class="retro-btn">More from Wiseman</a>
-        </div>
-
-        <div class="share-row">
-            SPREAD THE WORD:
-            <a href="https://twitter.com/intent/tweet?text=%22Call%20It%20Rain%22%20%E2%80%94%20the%20new%20protest-ska%20single%20from%20Wiseman%20Records.%20Out%20now.&amp;url=https%3A%2F%2Fwisemanrecords.com%2Fcall-it-rain%2F" target="_blank" rel="noopener">Tweet</a>
-            ·
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwisemanrecords.com%2Fcall-it-rain%2F" target="_blank" rel="noopener">Facebook</a>
-            ·
-            <a href="#" onclick="copyLink(event)">Copy Link</a>
         </div>
 
         <div class="lyrics-box" id="lyrics">
@@ -413,52 +338,12 @@ Spit in our eyes &mdash; and we'll call it rain
 We'd do it again, we'd do it again...
         </div>
 
-        <p class="footer-link">
-            &laquo; <a href="https://wisemanrecords.com/">Back to Wiseman Records</a>
-        </p>
-
-        <p class="copyright">
-            &copy; 2026 WISEMAN RECORDS &mdash; THE BRASS TAX
-        </p>
+        <div class="footer-block">
+            The Brass Tax &mdash; Call It Rain<br>
+            no copyright we'll enforce. share it however you want.<br>
+            hosted on wisemanrecords.com because the files had to go somewhere.
+        </div>
     </div>
-
-    <script>
-        function streamPlaceholder(e) {
-            e.preventDefault();
-            flashToast('> SMART LINK NOT SET');
-        }
-
-        function copyLink(e) {
-            e.preventDefault();
-            const url = 'https://wisemanrecords.com/call-it-rain/';
-            const done = () => flashToast('> LINK COPIED');
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(url).then(done, () => fallback());
-            } else {
-                fallback();
-            }
-            function fallback() {
-                const ta = document.createElement('textarea');
-                ta.value = url;
-                document.body.appendChild(ta);
-                ta.select();
-                try { document.execCommand('copy'); done(); } catch (_) { }
-                document.body.removeChild(ta);
-            }
-        }
-
-        function flashToast(text) {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = text;
-            document.body.appendChild(toast);
-            requestAnimationFrame(() => toast.classList.add('show'));
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 400);
-            }, 1500);
-        }
-    </script>
 
 </body>
 
