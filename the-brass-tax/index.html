@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="referrer" content="no-referrer">
+    <title>The Brass Tax — Free Record</title>
+    <meta name="description" content="The Brass Tax. Twelve songs. Free forever. Take it home, take it offline, hand it to somebody.">
+
+    <link rel="icon" type="image/png" href="cover.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Brass Tax">
+
+    <meta property="og:type" content="music.album">
+    <meta property="og:title" content="The Brass Tax — Free Record">
+    <meta property="og:description" content="Twelve songs. Free forever. Take it home, take it offline.">
+    <meta property="og:image" content="cover.png">
+    <meta property="og:site_name" content="Wiseman Records">
+
+    <style>
+        @font-face {
+            font-family: "Bowlby One";
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url("fonts/bowlby-one.woff2") format("woff2");
+        }
+
+        @font-face {
+            font-family: "Special Elite";
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url("fonts/special-elite.woff2") format("woff2");
+        }
+
+        :root {
+            --yellow: #f5c742;
+            --yellow-deep: #e8a93f;
+            --orange: #f08738;
+            --orange-deep: #c1490a;
+            --blue: #2e6fb8;
+            --blue-deep: #1d4a7e;
+            --purple: #5e4980;
+            --green: #7fbe3f;
+            --cream: #f5e9c8;
+            --ink: #181818;
+            --paper: #f4e7c4;
+            --red: #cf2a2a;
+            --bar-height: 84px;
+            --display: "Bowlby One", "Arial Black", "Impact", "Helvetica Neue", sans-serif;
+            --typewriter: "Special Elite", "Courier New", "Courier", monospace;
+            --mono: "Courier New", "Courier", monospace;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { margin: 0; padding: 0; }
+
+        body {
+            color: var(--ink);
+            font-family: var(--typewriter);
+            background-color: var(--yellow);
+            background-image:
+                radial-gradient(circle at 1px 1px, rgba(24, 24, 24, 0.18) 1.4px, transparent 1.6px);
+            background-size: 9px 9px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: calc(var(--bar-height) + env(safe-area-inset-bottom, 0px));
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Top checkerboard banner ===== */
+        .top-banner {
+            background:
+                linear-gradient(45deg, var(--ink) 25%, transparent 25%, transparent 75%, var(--ink) 75%),
+                linear-gradient(45deg, var(--ink) 25%, transparent 25%, transparent 75%, var(--ink) 75%),
+                var(--blue);
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+            height: 32px;
+            border-bottom: 4px solid var(--ink);
+        }
+
+        .ticker {
+            background: var(--orange-deep);
+            color: var(--cream);
+            font-family: var(--mono);
+            font-weight: bold;
+            padding: 6px 0;
+            border-bottom: 4px solid var(--ink);
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* ===== Wrapper ===== */
+        .wrapper {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            text-align: center;
+            padding: 30px 0 10px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: var(--display);
+            font-size: clamp(3rem, 12vw, 6.2rem);
+            line-height: 0.92;
+            margin: 0 0 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--orange);
+            -webkit-text-stroke: 2px var(--ink);
+            paint-order: stroke fill;
+            text-shadow:
+                3px 3px 0 var(--ink),
+                6px 6px 0 var(--orange-deep),
+                6px 8px 0 var(--ink);
+            transform: rotate(-1.5deg);
+            display: inline-block;
+        }
+
+        .hero .tag {
+            display: inline-block;
+            background: var(--red);
+            color: var(--cream);
+            padding: 6px 18px;
+            font-family: var(--display);
+            font-size: 0.95rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            border: 3px solid var(--ink);
+            box-shadow: 4px 4px 0 var(--ink);
+            transform: rotate(2deg);
+            margin: 10px 0 0;
+        }
+
+        .cover-frame {
+            display: block;
+            margin: 28px auto 12px;
+            max-width: 480px;
+            width: 92%;
+            position: relative;
+            padding: 14px;
+            background: var(--ink);
+            border: 4px solid var(--ink);
+            box-shadow:
+                10px 10px 0 var(--purple),
+                14px 14px 0 var(--ink);
+            transform: rotate(-1deg);
+        }
+
+        .cover-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 2px solid var(--ink);
+        }
+
+        .cover-stamp {
+            position: absolute;
+            top: -18px;
+            right: -12px;
+            background: var(--cream);
+            color: var(--red);
+            border: 3px double var(--red);
+            font-family: var(--display);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            padding: 8px 14px;
+            text-transform: uppercase;
+            transform: rotate(8deg);
+            box-shadow: 3px 3px 0 var(--ink);
+        }
+
+        /* ===== Manifesto / paper card ===== */
+        .paper {
+            background: var(--paper);
+            border: 3px solid var(--ink);
+            box-shadow: 6px 6px 0 var(--ink);
+            padding: 22px 24px;
+            margin: 36px auto;
+            position: relative;
+            font-family: var(--typewriter);
+            font-size: 1.05rem;
+            line-height: 1.65;
+            color: var(--ink);
+        }
+
+        .paper::before {
+            content: "";
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            height: 14px;
+            background:
+                linear-gradient(45deg, var(--ink) 25%, transparent 25%, transparent 75%, var(--ink) 75%),
+                linear-gradient(45deg, var(--ink) 25%, transparent 25%, transparent 75%, var(--ink) 75%),
+                var(--blue);
+            background-size: 14px 14px;
+            background-position: 0 0, 7px 7px;
+        }
+
+        .paper h2 {
+            font-family: var(--display);
+            font-size: 1.6rem;
+            margin: 14px 0 12px;
+            color: var(--orange-deep);
+            -webkit-text-stroke: 1px var(--ink);
+            paint-order: stroke fill;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .paper b { color: var(--orange-deep); }
+
+        .paper .sig {
+            display: block;
+            margin-top: 16px;
+            font-family: var(--display);
+            color: var(--blue-deep);
+            letter-spacing: 2px;
+            font-size: 0.95rem;
+        }
+
+        /* ===== Action zone (download + install) ===== */
+        .action-zone {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+            margin: 28px auto;
+        }
+
+        @media (min-width: 620px) {
+            .action-zone { grid-template-columns: 1fr 1fr; }
+        }
+
+        .action-btn {
+            background: var(--orange);
+            border: 3px solid var(--ink);
+            box-shadow: 6px 6px 0 var(--ink);
+            padding: 18px 18px;
+            font-family: var(--display);
+            font-size: 1.15rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.08s ease, box-shadow 0.08s ease;
+            text-decoration: none;
+            display: block;
+            line-height: 1.15;
+        }
+
+        .action-btn small {
+            display: block;
+            font-family: var(--typewriter);
+            font-size: 0.78rem;
+            letter-spacing: 0;
+            text-transform: none;
+            color: var(--ink);
+            margin-top: 6px;
+            font-weight: normal;
+        }
+
+        .action-btn:hover { background: var(--yellow-deep); }
+
+        .action-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0 var(--ink);
+        }
+
+        .action-btn.alt { background: var(--blue); color: var(--cream); }
+        .action-btn.alt small { color: var(--cream); }
+        .action-btn.alt:hover { background: var(--blue-deep); }
+
+        .action-btn[hidden] { display: none; }
+
+        .action-btn.is-busy { background: var(--green); }
+
+        .progress-track {
+            margin: -6px 0 14px;
+            background: var(--paper);
+            border: 3px solid var(--ink);
+            height: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-track[hidden] { display: none; }
+
+        .progress-track .bar {
+            background: var(--orange);
+            height: 100%;
+            width: 0%;
+            transition: width 0.18s linear;
+        }
+
+        .progress-track .label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--ink);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* ===== Tracklist ===== */
+        h2.section {
+            font-family: var(--display);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            color: var(--cream);
+            background: var(--ink);
+            display: inline-block;
+            padding: 6px 16px;
+            margin: 36px 0 18px;
+            letter-spacing: 3px;
+            transform: rotate(-1deg);
+            border: 3px solid var(--ink);
+            box-shadow: 4px 4px 0 var(--orange);
+        }
+
+        .track {
+            background: var(--cream);
+            border: 3px solid var(--ink);
+            box-shadow: 5px 5px 0 var(--ink);
+            padding: 14px 16px 16px;
+            margin: 0 0 18px;
+            position: relative;
+            transition: box-shadow 0.15s ease, transform 0.15s ease;
+        }
+
+        .track::before {
+            content: "";
+            position: absolute;
+            top: -3px;
+            left: 16px;
+            right: 16px;
+            height: 7px;
+            background:
+                linear-gradient(45deg, var(--ink) 25%, transparent 25%, transparent 75%, var(--ink) 75%),
+                linear-gradient(45deg, var(--ink) 25%, transparent 25%, transparent 75%, var(--ink) 75%),
+                var(--blue);
+            background-size: 7px 7px;
+            background-position: 0 0, 3.5px 3.5px;
+        }
+
+        .track h3 {
+            font-family: var(--display);
+            font-size: 1.35rem;
+            margin: 6px 0 4px;
+            color: var(--ink);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .track .num {
+            display: inline-block;
+            background: var(--orange);
+            color: var(--ink);
+            border: 2px solid var(--ink);
+            padding: 1px 8px;
+            margin-right: 8px;
+            font-family: var(--display);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            vertical-align: middle;
+        }
+
+        .track .meta {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--purple);
+            letter-spacing: 1px;
+            margin: 0 0 10px;
+        }
+
+        .track-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .play-btn {
+            background: var(--blue);
+            color: var(--cream);
+            border: 3px solid var(--ink);
+            box-shadow: 3px 3px 0 var(--ink);
+            font-family: var(--display);
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            padding: 9px 18px;
+            cursor: pointer;
+            text-transform: uppercase;
+            min-width: 110px;
+        }
+
+        .play-btn:hover { background: var(--blue-deep); }
+        .play-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 var(--ink);
+        }
+
+        .track-time {
+            font-family: var(--mono);
+            font-size: 0.95rem;
+            color: var(--ink);
+            font-weight: bold;
+        }
+
+        .track-download {
+            margin-left: auto;
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--ink);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .play-count {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            background: var(--ink);
+            color: var(--green);
+            padding: 3px 9px;
+            letter-spacing: 1px;
+            border: 2px solid var(--ink);
+        }
+
+        .play-count::before {
+            content: "\25B6 ";
+            color: var(--orange);
+        }
+
+        .play-count.is-bump { animation: bump 0.45s ease; }
+
+        .track.is-playing {
+            box-shadow: 7px 7px 0 var(--orange);
+        }
+
+        .track.is-playing h3 { color: var(--orange-deep); }
+
+        /* Hidden inline lyrics (rendered in overlay) */
+        .lyrics { display: none; }
+
+        /* ===== Lyrics overlay ===== */
+        .lyrics-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: calc(var(--bar-height) + env(safe-area-inset-bottom, 0px));
+            z-index: 45;
+            background: var(--paper);
+            display: flex;
+            flex-direction: column;
+            transform: translateY(110%);
+            transition: transform 0.32s ease;
+            pointer-events: none;
+        }
+
+        .lyrics-overlay.open {
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .lyrics-header {
+            padding: 14px 18px;
+            border-bottom: 3px solid var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+            background: var(--orange);
+        }
+
+        .lyrics-overlay-title {
+            flex: 1;
+            color: var(--ink);
+            font-family: var(--display);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-transform: uppercase;
+        }
+
+        .lyrics-close {
+            background: var(--ink);
+            color: var(--cream);
+            border: 3px solid var(--ink);
+            font-family: var(--display);
+            font-size: 1.1rem;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .lyrics-overlay-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px 40px;
+            color: var(--ink);
+            font-family: var(--typewriter);
+            font-size: 1rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            text-align: left;
+            max-width: 680px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* ===== Player bar ===== */
+        .player-bar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--ink);
+            color: var(--cream);
+            font-family: var(--mono);
+            padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+            display: grid;
+            grid-template-columns: minmax(170px, 1.1fr) auto minmax(220px, 2fr) auto;
+            align-items: center;
+            gap: 14px;
+            z-index: 50;
+            border-top: 4px solid var(--orange);
+        }
+
+        .player-bar::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background:
+                linear-gradient(45deg, var(--ink) 25%, transparent 25%, transparent 75%, var(--ink) 75%),
+                linear-gradient(45deg, var(--ink) 25%, transparent 25%, transparent 75%, var(--ink) 75%),
+                var(--blue);
+            background-size: 8px 8px;
+            background-position: 0 0, 4px 4px;
+            pointer-events: none;
+        }
+
+        .now-playing {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+            text-align: left;
+        }
+
+        .bar-cover {
+            width: 52px;
+            height: 52px;
+            object-fit: cover;
+            border: 3px solid var(--orange);
+            flex-shrink: 0;
+        }
+
+        .bar-meta { min-width: 0; overflow: hidden; }
+
+        .bar-title {
+            color: var(--orange);
+            font-family: var(--display);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-transform: uppercase;
+        }
+
+        .bar-album {
+            color: var(--cream);
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .ctl {
+            background: var(--cream);
+            color: var(--ink);
+            border: 2px solid var(--ink);
+            font-size: 1.05rem;
+            font-weight: bold;
+            width: 42px;
+            height: 38px;
+            cursor: pointer;
+            font-family: var(--mono);
+        }
+
+        .ctl.play {
+            width: 54px;
+            background: var(--orange);
+        }
+
+        .ctl:hover { background: var(--yellow); }
+        .ctl.play:hover { background: var(--yellow-deep); }
+
+        .ctl:active { transform: translate(1px, 1px); }
+
+        .progress-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar-time-current,
+        .bar-time-total {
+            color: var(--cream);
+            font-size: 0.8rem;
+            min-width: 42px;
+            text-align: center;
+        }
+
+        .progress {
+            flex: 1;
+            height: 12px;
+            background: #2a2a2a;
+            border: 2px solid var(--cream);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: var(--orange);
+            height: 100%;
+            width: 0%;
+            pointer-events: none;
+            transition: width 0.08s linear;
+        }
+
+        .lyrics-toggle {
+            background: var(--green);
+            color: var(--ink);
+            border: 2px solid var(--ink);
+            font-family: var(--display);
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            padding: 7px 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .lyrics-toggle:hover { background: var(--cream); }
+
+        @media (max-width: 600px) {
+            :root { --bar-height: 220px; }
+
+            .player-bar {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+            }
+
+            .bar-cover {
+                width: 42px;
+                height: 42px;
+            }
+
+            .lyrics-toggle { justify-self: center; }
+
+            .lyrics-overlay-body {
+                padding: 18px 18px 24px;
+                font-size: 0.95rem;
+            }
+
+            .hero h1 { transform: rotate(-1deg); }
+
+            .track-download { margin-left: 0; }
+        }
+
+        /* ===== Footer ===== */
+        .footer-block {
+            margin: 40px 0 20px;
+            color: var(--ink);
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .footer-block a { color: var(--blue-deep); }
+
+        /* ===== Misc ===== */
+        @keyframes bump {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.18); color: var(--orange); }
+            100% { transform: scale(1); }
+        }
+
+        .easter-toast {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.85);
+            background: var(--ink);
+            color: var(--cream);
+            border: 4px solid var(--orange);
+            padding: 16px 28px;
+            font-family: var(--display);
+            font-size: 1.05rem;
+            letter-spacing: 2px;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .easter-toast.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-banner" aria-hidden="true"></div>
+
+    <div class="ticker" role="marquee">
+        <marquee scrollamount="10">
+            *** THE BRASS TAX *** FREE FOREVER *** NOT FOR SALE *** TAKE IT HOME *** TAKE IT OFFLINE *** ADD TO HOMESCREEN *** PLAY IT LOUD *** PLAY IT FOR SOMEBODY WHO NEEDS IT ***
+        </marquee>
+    </div>
+
+    <div class="wrapper">
+
+        <header class="hero">
+            <h1>The Brass Tax</h1>
+            <div><span class="tag">!!! Free Forever !!!</span></div>
+            <figure class="cover-frame">
+                <img src="cover.png" alt="The Brass Tax — album cover">
+                <span class="cover-stamp">Paid in Full</span>
+            </figure>
+        </header>
+
+        <section class="paper">
+            <h2>The Receipt</h2>
+            <p>we're <b>The Brass Tax</b>. this is the whole record. twelve songs. the files are right down there. take them.</p>
+            <p>not signed. not on the streamers. no merch drop. no link tree. no "join the list to be the first to hear" &mdash; you're hearing it. that's the whole funnel.</p>
+            <p>save it to your homescreen and it plays offline. burn it to a CD. drop it on a thumb drive. paint the lyrics on a wall. <b>if a streamer ever cuts us a check, it gets donated or set on fire</b> &mdash; we'll show you the smoke.</p>
+            <p>turn it up. play it for somebody who needs it. play it for somebody who'll hate it. we don't care which.</p>
+            <span class="sig">&mdash; The Brass Tax // Wiseman Records</span>
+        </section>
+
+        <div class="action-zone">
+            <button class="action-btn" id="install-btn" type="button" hidden>
+                Install the Record
+                <small>adds The Brass Tax to your homescreen as an app</small>
+            </button>
+            <button class="action-btn alt" id="cache-all-btn" type="button">
+                Take It Offline
+                <small>caches every track on this device for offline play (~60 MB)</small>
+            </button>
+        </div>
+
+        <div class="progress-track" id="cache-progress" hidden>
+            <div class="bar" id="cache-progress-bar"></div>
+            <div class="label" id="cache-progress-label">0 / 12</div>
+        </div>
+
+        <h2 class="section">The Songs</h2>
+
+        <div class="track" data-src="1%20-%20Punk%20in%20the%20Dark.mp3" data-file="1 - Punk in the Dark.mp3" data-title="Punk in the Dark">
+            <h3><span class="num">01</span>Punk in the Dark</h3>
+            <div class="meta">[ FILE NO. 01 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Punk in the Dark">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="1%20-%20Punk%20in%20the%20Dark.mp3" download="The Brass Tax - 01 Punk in the Dark.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">Sitting with the static
+in the spaces between walls
+where the signal turns to feedback
+and nobody ever calls
+
+Grew up on three chords
+and the truth they couldn't say
+learned to make a noise
+out of everything that wouldn't go away
+
+I carried every shadow
+like a chord I couldn't name
+until I played it loud enough
+to know it wasn't shame
+
+I'll burn through every dark room
+with a three-chord fire and a broken tambourine
+Just a punk in the dark
+but I know what the darkness means
+
+I know these rooms by heart now
+know exactly where they bend
+know which dark belongs to me
+and which ones I can't mend
+
+The feedback used to scare me
+now it sounds a little like home
+It's different being lonely
+than choosing to be alone
+
+I carried every shadow
+like a chord I couldn't name
+until I played it loud enough
+to know it wasn't shame
+
+So I'll burn through every dark room
+with a three-chord fire and a broken tambourine
+still a punk in the dark
+but I know what the darkness means
+
+not fixed
+not saved
+not standing in the light
+I'm just a punk in the dark
+who finally learned the dark I made
+
+Sitting with the static
+a little less afraid
+I'm a punk in the dark
+and I know the dark I made</div>
+            </details>
+        </div>
+
+        <div class="track" data-src="2%20-%20H.O.A.%20Dictator.mp3" data-file="2 - H.O.A. Dictator.mp3" data-title="H.O.A. Dictator">
+            <h3><span class="num">02</span>H.O.A. Dictator</h3>
+            <div class="meta">[ FILE NO. 02 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play H.O.A. Dictator">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="2%20-%20H.O.A.%20Dictator.mp3" download="The Brass Tax - 02 H.O.A. Dictator.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">She patrols the cul-de-sac in a golf cart made of gold
+With a clipboard and a ruler and a laminated code
+The grass is half an inch too high, the mailbox leans to the right
+She's drafting up a citation to deliver in the night
+
+You can try to hide your trash cans
+You can try to close the blinds
+Section 4, Paragraph B: Violations will be fined
+
+All hail the Queen of the subdivision zone
+With a gavel made of plastic and a heart of solid stone
+She's the H.O.A. Dictator, she's watching from the street
+If your shutters aren't "Fascist Beige," accept defeat!
+
+I painted my front door a shade of "Sunset Red"
+Next morning there's a letter saying "Change it or you're dead"
+My lawyer read the bylaws twice and quietly hung up
+She runs this little kingdom like a slow suburban curse
+
+You can't park on the street past nine
+You can't plant a maple tree
+Section 9, Paragraph C: Unauthorized tree.
+
+All hail the Queen of the subdivision zone
+With a gavel made of plastic and a heart of solid stone
+She's the H.O.A. Dictator, she's watching from the street
+If your shutters aren't "Fascist Beige," accept defeat!
+
+We tried to vote her out last May...
+But she moved the meeting to a Tuesday...
+At 2 PM... when we were all at work.
+SHE KNEW WE WERE AT WORK!
+...And she catered it. With cookies. We saw the photos.
+
+All hail the Queen of the subdivision zone
+With a gavel made of plastic and a heart of solid stone
+She's the H.O.A. Dictator, she's watching from the street
+If your shutters aren't "Fascist Beige" &mdash;
+WE ACCEPT DEFEAT!
+
+Pick it up, pick it up, pick up your trash cans!
+Your bin was visible at 6:01 PM.
+I was at dinner!
+Second notice generated.
+It's TRASH DAY!
+Bins placed before 7 AM constitute a violation. Section 12.
+Just let me live!
+Have a nice day.</div>
+            </details>
+        </div>
+
+        <div class="track" data-src="3%20-%20Schro%CC%88dinger%27s%20Dishes.mp3" data-file="3 - Schrödinger's Dishes.mp3" data-title="Schr&ouml;dinger's Dishes">
+            <h3><span class="num">03</span>Schr&ouml;dinger's Dishes</h3>
+            <div class="meta">[ FILE NO. 03 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Schrodinger's Dishes">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="3%20-%20Schro%CC%88dinger%27s%20Dishes.mp3" download="The Brass Tax - 03 Schrodingers Dishes.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">There's a box in my kitchen full of mystery
+A stainless steel riddle of scientific theory
+Some dude with a cat and too much time
+Said "until you observe it, everything's fine!"
+So the plates and the bowls and that one good knife
+Exist in three states, living three lives!
+
+DON'T OPEN THE DOOR! (Whoa-oh-oh!)
+DON'T OPEN THE DOOR! (Whoa-oh-oh!)
+Is it clean? Is it dirty? Is it empty? WHO KNOWS!
+That's physics, baby! That's just how it goes!
+'Cause the dishes don't exist 'til you open it up
+So I'm drinking my coffee from a measuring cup!
+
+It's high noon in the kitchen, it's man vs. machine.
+Two old gunslingers in a kitchen-sink scene.
+It won't blink. I won't blink. Nobody gives ground.
+I'll starve where I'm standing cuz I'm not backing down!
+My wife circles the kitchen, I circle it too
+Two scientists pretending we don't need a spoon
+We nod at each other, we hold the line
+Nobody's hungry! We're doing just fine!
+
+DON'T OPEN THE DOOR! (Whoa-oh-oh!)
+DON'T OPEN THE DOOR! (Whoa-oh-oh!)
+Is it clean? Is it dirty? Is it empty? WHO KNOWS!
+That's physics, baby! That's just how it goes!
+'Cause the dishes don't exist 'til you open the door
+So I'm sipping my coffee from the silverware drawer!
+
+Day three of the standoff, we're getting creative
+Cereal in a colander, that's innovative!
+Spaghetti served proudly in the pot it was boiled
+A frisbee's a plate if it hasn't been soiled!
+I'm sipping my wine from a gravy boat
+Eating soup with a spatula, look at us cope!
+The cabinet is empty, the science is strong
+We can live like this forever! (What could go wrong?)
+
+Okay... okay... the truth is...
+It was never about the science...
+If I observe it... I have to unload it
+The wave function collapses... into chores
+
+OBSERVATION IS RESPONSIBILITY!
+AND I'M NOT READY TO COMMIT!
+
+...It's clean.
+It's been clean for three days.
+
+...I knew that.
+
+WE OPENED THE DOOR! (Whoa-oh-oh!)
+WE OPENED THE DOOR! (Whoa-oh-oh!)
+It was clean! Not dirty! Not empty! WE KNEW!
+That's physics, baby! The data came through!
+We finally looked and we opened it up
+And I'm drinking my coffee from an actual cup!
+
+Top Rack! (Cups!)
+Bottom Rack! (Plates!)
+Silverware Basket! (Nobody's favorite!)
+
+The toaster saw the whole thing.</div>
+            </details>
+        </div>
+
+        <div class="track" data-src="4%20-%20Call%20It%20Rain.mp3" data-file="4 - Call It Rain.mp3" data-title="Call It Rain">
+            <h3><span class="num">04</span>Call It Rain</h3>
+            <div class="meta">[ FILE NO. 04 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Call It Rain">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="4%20-%20Call%20It%20Rain.mp3" download="The Brass Tax - 04 Call It Rain.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">He calls us deplorable from the pulpit, from the stage
+And we whoop until we're hoarse for him &mdash; there's no one half so great (so great!)
+He sold us holy water that was tap and turpentine
+We drank it down and blessed him, and we'd buy it one more time
+He says the rich are righteous and the hungry are to blame
+We lost the farm to prove it, and we'd lose it all the same
+He swore to us the sky was falling, falling to the ground
+Then swore it never fell at all &mdash; we cheered for both, and how!
+
+Whatever you need, we'll give you &mdash; our savings, our sense, our sons
+Spit in our eyes and call it rain, we'll thank you when you're done
+Take it all and blame us, tell us lies and we'll agree
+'Cause it feels so good to follow, and it hurts too much to see
+
+He sells us hats and Bibles, sells us shoes and mobile phones (all gold!)
+We mortgaged grandma's headstone for a front-row golden throne
+He told us love our neighbor &mdash; then he told us name a foe
+We burned the Parsons' orchard, and we hummed a hymn, and oh&mdash;
+He says to doubt is treason, says a question is a sin
+So we shunned the ones who wondered, and we welcomed no one in
+He'll turn on us tomorrow, call us traitors, throw us through
+And we'll defend him to the grave &mdash; we'll say we knew it too
+
+Whatever you need, we'll give you &mdash; our savings, our sense, our sons
+Piss in our eyes and call it rain, we'll thank you when you're done
+Take it all and blame us, tell us lies and we'll agree
+'Cause it feels so good to follow, and it hurts too much to see
+
+Sometimes late at night a little voice gets in my head
+It whispers what he took from me, it counts my empty bed
+It says you gave him everything &mdash; now what'd he give you back?&mdash;
+...so I sing a little louder and I shove it down the crack
+'Cause if he lied then I'm a fool, and I can't bear to be
+So pour me one more sermon, sir &mdash; it hurts too much to see
+
+Whatever you need, we'll give you &mdash; our children, our truth, our names
+Light the whole world up for you and skank around the flames (Oi!)
+Take it all and thank you, and we'll deny it to the end
+'Cause it feels so good to follow &mdash; say you'll never leave us, friend
+
+(We'd do it again) we'd do it again
+(We'd do it again) we'd do it again
+Spit in our eyes &mdash; and we'll call it rain
+We'd do it again, we'd do it again...</div>
+            </details>
+        </div>
+
+        <div class="track" data-src="5%20-%20Skanking%20Right%20on%20Through.mp3" data-file="5 - Skanking Right on Through.mp3" data-title="Skanking Right on Through">
+            <h3><span class="num">05</span>Skanking Right on Through</h3>
+            <div class="meta">[ FILE NO. 05 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Skanking Right on Through">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="5%20-%20Skanking%20Right%20on%20Through.mp3" download="The Brass Tax - 05 Skanking Right on Through.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">Boots by the door
+Coffee in hand
+Grandma's old banner
+Rolled rubber band
+Neighbor shouts
+"ride with me, Friend"
+Today's the day the fence line ends
+
+We're heading down to the square
+My love
+Linked arm to arm in a ragged line
+They drew their maps on our fields above
+But this old ground is still yours and mine
+Spin me once in the crowd
+My dear
+Laugh so loud they all shake with fear
+If they invade what we hold true
+We'll just skank right on through
+
+Tractors parked crooked
+Blocking the street
+Kids with crayons on cardboard sheets
+"Hands off our homes" in crooked blue
+Croissants and coffee for the whole crew
+
+We're heading down to the square
+My love
+Linked arm to arm in a ragged line
+They drew their maps on our fields above
+But this old ground is still yours and mine
+Spin me once in the crowd
+My dear
+Laugh so loud they all shake with fear
+If they invade what we hold true
+We'll just skank right on through
+
+Kick up your heels
+Don't bow your head
+Skank till their big plans turn bright red
+Every loud step says what we mean
+This land beats stronger than any machine
+
+We're heading down to the square
+My love
+Linked arm to arm in a ragged line
+They drew their maps on our fields above
+But this old ground is still yours and mine
+Spin me once in the crowd
+My dear
+Laugh so loud they all shake with fear
+If they invade what we hold true
+We'll just skank right on through</div>
+            </details>
+        </div>
+
+        <div class="track" data-src="6%20-%20The%20Great%20Migration%20of%20the%20Living%20Room%20Set.mp3" data-file="6 - The Great Migration of the Living Room Set.mp3" data-title="The Great Migration of the Living Room Set">
+            <h3><span class="num">06</span>The Great Migration of the Living Room Set</h3>
+            <div class="meta">[ FILE NO. 06 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play The Great Migration of the Living Room Set">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="6%20-%20The%20Great%20Migration%20of%20the%20Living%20Room%20Set.mp3" download="The Brass Tax - 06 The Great Migration of the Living Room Set.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">The wind is howling through the keyhole of the door
+I feel a vibration in the hardwood floor
+I wake up in the morning and my coffee table's gone
+I see it running naked across the neighbor's lawn!
+The sofa packed a suitcase full of loose and dirty change
+It's seeking out a life on the open mountain range!
+
+They are leaving!
+They are breathing!
+The upholstery is heaving!
+Hey! Hey! Hey!
+
+Fly away, my mahogany friends!
+Go to where the carpet never ends!
+Cross the border of the patio gate
+Don't look back, don't hesitate!
+I will sleep upon the cold concrete
+While the armchairs run down the street!
+La la la la la la la!
+
+The lamp has fallen in love with a street light down the road
+It severed its own cord, it broke the electric code!
+The bookshelf is a boat now, sailing on the sea
+Carrying the stories of my ancient history!
+I try to catch the ottoman, I grab it by the leg
+It kicks me in the face and it screams don't beg!
+
+Where do the tables go when the winter comes?
+Do they march to the beat of the distant drums?
+Are they refugees of the interior design?
+Or did they just get tired of holding up my wine?
+Faster! Faster! FASTER!
+
+Fly away, my mahogany friends!
+Go to where the carpet never ends!
+Cross the border of the patio gate
+Don't look back, don't hesitate!
+I will sleep upon the cold concrete
+While the armchairs run down the street!
+
+Party on the floor!
+Party on the floor!
+We don't need the furniture no more!
+Hup! Hup!</div>
+            </details>
+        </div>
+
+        <div class="track" data-src="7%20-%20Tuition%20%26%20Fees%20%28The%20Bursar%27s%20Asylum%29.mp3" data-file="7 - Tuition & Fees (The Bursar's Asylum).mp3" data-title="Tuition &amp; Fees (The Bursar's Asylum)">
+            <h3><span class="num">07</span>Tuition &amp; Fees (The Bursar's Asylum)</h3>
+            <div class="meta">[ FILE NO. 07 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Tuition and Fees">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="7%20-%20Tuition%20%26%20Fees%20%28The%20Bursar%27s%20Asylum%29.mp3" download="The Brass Tax - 07 Tuition and Fees.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">The envelope was thick, the paper was white
+I opened it up in the soft morning light
+A simple transaction, an investment in truth
+A reasonable price for the days of his youth
+Surely there's a mistake, a decimal place drift
+I'll just call them up and give their spirits a lift...
+
+"Hello?" I said to the voice on the line
+"I think that your math is not aligning with mine."
+She said, "Sir, the tuition is fixed to the rate
+Of the prestige we offer inside of the gate."
+"But what about housing?" "It's premium, Sir."
+"And what about dining?" "It's gourmet, as per."
+
+Please hold. Your call is important to us.
+Did you know you can pay with a kidney?
+Please hold.
+I've been on hold for forty days...
+The music... it loops...
+It loops...
+
+I'll sell the Toyota!
+I'll sell the TV!
+I'll stop drinking coffee!
+I'll stop drinking tea!
+I don't need a liver!
+I don't need a spleen!
+I just need a receipt that's wiped squeaky clean!
+
+I'm emptying the coffers!
+I'm clearing out the vault!
+It's nobody's error!
+It's nobody's fault!
+It's just the cost of admission!
+The price of the brain!
+I'm swirling around in the bottom of the drain!
+Down to the zero!
+Down to the nil!
+I love the sensation of paying the bill!
+PAYING THE BILL! PAYING THE BILL!</div>
+            </details>
+        </div>
+
+        <div class="track" data-src="8%20-%20Case%20of%20the%20Missing%20Crown.mp3" data-file="8 - Case of the Missing Crown.mp3" data-title="Case of the Missing Crown">
+            <h3><span class="num">08</span>Case of the Missing Crown</h3>
+            <div class="meta">[ FILE NO. 08 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Case of the Missing Crown">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="8%20-%20Case%20of%20the%20Missing%20Crown.mp3" download="The Brass Tax - 08 Case of the Missing Crown.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">Tuesday morning. 8:00 AM. I approached the mirror. The suspect... was gone.
+
+I walked onto the bathroom tile
+I opened up the suspect's file
+The witness was the looking glass
+The only one who watched it pass
+I found the evidence in the sink
+No broken lock, no missing link
+The perimeter is breaking down
+They're falling back behind the crown
+
+I checked the locks
+I checked the pane
+No one to blame.
+No one to blame.
+
+The evidence is wearing thin
+A losing game I'm playing in
+The suspect left without a trace
+I'm losing ground, I'm losing face
+Where did it go?
+Nobody seems to know!
+
+I tried a tactical disguise
+To hide the truth from prying eyes
+I combed it left, I combed it right
+But nothing covers up the light
+I'm looking at the old photos now
+Where the line still held above the brow
+Now the whole campaign is heading south
+I taste the verdict in my mouth
+
+Is it the stress?
+Is it the food?
+Genetic feud.
+Genetic feud.
+
+Reconstructing the scene. This was no accident. It was a retreat. An orderly withdrawal. The subject's last transmission was clear&mdash;
+ABANDON THE SUMMIT!
+
+The evidence is wearing thin
+A losing game I'm playing in
+The suspect left without a trace
+I'm losing ground, I'm losing face
+Where did it go?
+Nobody seems to know!
+
+I'm closing the file.
+Case status: Cold.
+It wasn't a robbery...
+It was an inside job.</div>
+            </details>
+        </div>
+
+        <div class="track" data-src="9%20-%20In%20Your%20Head.mp3" data-file="9 - In Your Head.mp3" data-title="In Your Head">
+            <h3><span class="num">09</span>In Your Head</h3>
+            <div class="meta">[ FILE NO. 09 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play In Your Head">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="9%20-%20In%20Your%20Head.mp3" download="The Brass Tax - 09 In Your Head.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">There now, there now. Deep breath, precious. Nothing happened &mdash; and you weren't there to see it anyway.
+
+Oh sweetheart, oh precious, just look how you shiver and sweat
+Come sit on our knee for a minute &mdash; you're the dearest thing we've met
+When's the last good sleep you had, love? You've been wearing yourself down
+That house that you swear burned still stands &mdash; the prettiest in town
+You think you saw it falling? That's your fever, that's your fright
+There's no smoke without your worry, there's no fire here tonight
+You never saw a thing, my angel, never heard a single sound
+And nobody's afraid but you &mdash; so why are you still hanging round?
+
+It's all in your head, dear &mdash; it's all in your head
+The things you swear we promised are the things we never said
+The streets are clean, the sky is clear, you're safe as you can be
+So who are you gonna trust &mdash; sweet us, or what you think you see?
+
+We were never at war, dear &mdash; we were always, always kind
+Now sip your little latte, sweet thing, and let us soothe your mind
+Go and check the ledger, pet &mdash; oh look, it all agrees!
+We've tidied every memory and trimmed them like the trees
+There was always bread aplenty, there was never any drought
+You imagined all that hunger &mdash; bless your heart, we'll wipe it out
+You're so clever, you're so special, you just feel things much too deep
+Now hush that pretty head of yours and drift away to sleep
+
+It's all in your head, dear &mdash; it's all in your head
+The things you swear we promised are the things we never said
+The streets are clean, the sky is clear, you're safe as you can be
+So who are you gonna trust &mdash; sweet us, or what you think you see?
+
+You're not well, you're not well &mdash; but we love you, we swear
+We've a quiet little room, dear, with your name right over there
+We'll take such gentle care of you, you'll never leave our&mdash;
+&mdash;oh, there now, dry your eyes, my sweet, there's nothing, nothing there
+You dreamed it all, you precious thing, you dreamed it in your bed
+And soon there won't be anything &mdash; or anyone &mdash; instead
+
+It's all in your head, my darling &mdash; there's nothing in your head
+The things you thought you lived through are the things that never bled
+The streets were always empty 'cause there's no one left to see&mdash;
+So who are you gonna trust &mdash; sweet us? There's no "you" left to be
+
+Shhh (shhh)
+It's all in your head (it's all in your head)
+There now, my darling, there now
+You're welcome
+Nothing happened here</div>
+            </details>
+        </div>
+
+        <div class="track" data-src="10%20-%20When%20You%27re%20Smilin%27.mp3" data-file="10 - When You're Smilin'.mp3" data-title="When You're Smilin'">
+            <h3><span class="num">10</span>When You're Smilin'</h3>
+            <div class="meta">[ FILE NO. 10 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play When You're Smilin'">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="10%20-%20When%20You%27re%20Smilin%27.mp3" download="The Brass Tax - 10 When Youre Smilin.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">Libert&eacute;, &Eacute;galit&eacute;, Fraternit&eacute;
+
+It starts as a whisper
+"Just fixing waste &mdash; fraud!"
+Just "tighten the borders"
+Just "weather the storms"
+They said "don't be so dramatic
+Don't be a slouch"
+While they searched for the love
+In a tight little couch (rich upholstery)
+
+They put fear on a bumper sticker
+Sold it two-for-one
+"Act now! Discount Freedom!
+The sale has just begun!"
+And we clap like wind-up monkeys
+To the marching of the feet
+While the boots get spit-and-polish
+And the jokes show their teeth (Ha!)
+
+Look who's smiling at the guillotine (smiling at the guillotine)
+Selfie with the guillotine (Selfie with the guillotine)
+Filter on the guillotine (Say cheese!)
+"If it's not me, then I'm not mean"
+Laugh track over gasoline
+"Freedom's fine, just keep it clean"
+Oh, isn't terror so routine
+When you're smiling at the guillotine
+
+They said "don't call it fascist
+That's rude, that's impolite"
+They prefer "law and order"
+With a flag that's just too bright
+They said "both sides, both sides"
+As the books went in the bin
+Then they banned the mirror too
+So we'd never see our grin (oh, fancy that)
+
+They turned outrage into merch
+Printed hate on a hat
+You can sip your little latte
+While you cheer the autocrat
+And the talk show keeps on chuckling
+At the clown with all the keys
+Till the punchline leaves the building
+And we're begging it "oh please"
+
+Look who's smiling at the guillotine (smiling at the guillotine)
+Skank around the guillotine (Skank 'round the guillotine)
+Lip-sync to the guillotine (Work it!)
+"If it's not mine, then I'm still clean"
+Share and like the quarantine
+Of anyone you deem obscene
+Oh, isn't horror so pristine
+When you're smiling at the guillotine
+
+(So funny)
+How it's "just a joke"
+Till the joke's on you
+(So sunny)
+When the sky's on fire
+But the smoke's off-view
+You say "lighten up, darling
+You're such a drama queen"
+'Til you're whispering punchlines
+From the back of an ICE machine...
+
+Libert&eacute;, &Eacute;galit&eacute;, Fraternit&eacute;
+
+Allez!
+
+Oh, regardez la guillotine
+Un selfie avec la guillotine
+Un filtre sur la guillotine (Ouistiti!)
+&laquo; C'est pas moi, donc je suis clean &raquo;
+Des rires sur l'h&eacute;moglobine
+&laquo; Libert&eacute;, juste en vitrine &raquo;
+L'horreur est devenue routine
+Quand on sourit &agrave; la guillotine!
+
+So raise your glass for the final act
+To the show we've already seen
+Thank you, you've been a perfect crowd
+For the world's worst rerun scene (ba-da-bop)
+Tip your staff, tip your conscience
+Try the exit, if you please...
+I'll be here, playing ska
+While the empire buckles at the knees.</div>
+            </details>
+        </div>
+
+        <div class="track" data-src="11%20-%20Midnight%20Mulligan.mp3" data-file="11 - Midnight Mulligan.mp3" data-title="Midnight Mulligan">
+            <h3><span class="num">11</span>Midnight Mulligan</h3>
+            <div class="meta">[ FILE NO. 11 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Midnight Mulligan">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="11%20-%20Midnight%20Mulligan.mp3" download="The Brass Tax - 11 Midnight Mulligan.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">Calendar's a construct, numbers are a lie!
+We need a line in the sand before we die!
+Flushing the anxiety, wiping clean the slate.
+Forgiving you for being weird.
+Forgiving you for being late.
+
+Old acquaintances can be forgot!
+Especially the ones who talk a lot!
+Don't need the memories, don't need the ghosts!
+We need a rhythm and a reason for a toast!
+
+Raise a glass to the crash and burn!
+To bridges crossed and tables turned!
+We're dancing in the ashes of the plans that fell apart!
+And fixing every crack inside the armor of the heart!
+To old days!
+To new days!
+To days we barely survived!
+Lucky just to be alive!
+
+January was a bust, frozen, broke, and sad.
+July, I bought a jetski with the savings that I had.
+March, I quit my job. April, took it back.
+October was a blur, and we don't discuss the facts!
+Three hundred sixty-five mistakes, stacked up wall to wall &mdash;
+But midnight is the mop that comes and wipes away them all!
+
+Five! For every door we slammed!
+Four! For every stupid plan!
+Three! For all the tears we cried!
+Two! For making it alive!
+One!
+ZERO IS A MYTH &mdash; IT STARTS AGAIN!
+
+Raise a glass to the crash and burn!
+To bridges crossed and tables turned!
+We're dancing in the ashes of the plans that fell apart!
+And fixing every crack inside the armor of the heart!
+To old days!
+To new days!
+To days we barely survived!
+
+Should old acquaintance be forgot?
+Yeah, probably!</div>
+            </details>
+        </div>
+
+        <div class="track" data-src="12%20-%20Long%20Haul.mp3" data-file="12 - Long Haul.mp3" data-title="Long Haul">
+            <h3><span class="num">12</span>Long Haul</h3>
+            <div class="meta">[ FILE NO. 12 // FREE DOWNLOAD ]</div>
+            <div class="track-row">
+                <button class="play-btn" type="button" aria-label="Play Long Haul">PLAY</button>
+                <span class="track-time">--:--</span>
+                <span class="play-count">-- plays</span>
+                <a class="track-download" href="12%20-%20Long%20Haul.mp3" download="The Brass Tax - 12 Long Haul.mp3">&darr; mp3</a>
+            </div>
+            <details class="lyrics">
+                <summary>Lyrics</summary>
+                <div class="lyrics-body">We don't move as fast as we used to
+The paint's chipped off and the shocks aren't new
+We've got two hundred thousand miles on the frame
+And the road ahead doesn't look the same
+As the maps we drew when we were twenty-two
+But I'm happy riding shotgun with you
+
+We're in for the long haul, babe
+We're taking the scenic route
+Through the noise and the crazy
+And the shadow of a doubt
+It's not a sprint to the finish line
+It's a slow ride through the passage of time
+Yeah, we're in for the long haul.
+We're in for the long haul.
+
+The house is loud and the schedule is tight
+We're passing ships in the kitchen light
+But there's a comfort in the way we steer
+Through the traffic and the changing gears
+We traded flash for something that lasts
+We built our future out of our past
+
+We're in for the long haul, babe
+We're taking the scenic route
+Through the noise and the crazy
+And the shadow of a doubt
+It's not a sprint to the finish line
+It's a slow ride through the passage of time
+Yeah, we're in for the long haul.
+We're in for the long haul.
+
+Yeah, we're in for the long haul, the long haul... the long haul...
+
+Rum Ri Dee!
+Lord have mercy!
+Watch dee situation!
+I'm talkin' bout dee kindness, dee caring!
+Talkin' bout dee heavy loads that we are sharin'!
+She got dat gentle spirit but her strength is grand
+Dee finest woman in dee whole of dee land!
+She da rock, she da anchor, dee solid foundation!
+No waver, no drift.
+No hesitation!
+
+We're in for the long haul, baby
+We're taking the scenic route
+Through the noise and the crazy
+And the shadow of a doubt
+It's not a sprint to the finish line
+It's a slow ride through the passage of time
+Yeah, we're in for the long haul.
+We're in for the long haul.</div>
+            </details>
+        </div>
+
+        <div class="footer-block">
+            <p><b>THE BRASS TAX</b> &mdash; the whole record, free forever, no permission needed.<br>
+            burn copies. paint the lyrics on a wall. hand it to somebody who'll hate it.<br>
+            hosted on <a href="https://wisemanrecords.com">wisemanrecords.com</a> because the files had to live somewhere.</p>
+            <p style="opacity: 0.7;">&copy; 2026 Wiseman Records &mdash; not for sale &mdash; never was</p>
+        </div>
+
+    </div>
+
+    <div class="lyrics-overlay" aria-hidden="true">
+        <div class="lyrics-header">
+            <span class="lyrics-overlay-title">&mdash; select a track &mdash;</span>
+            <button class="lyrics-close" type="button" aria-label="Close lyrics">&times;</button>
+        </div>
+        <div class="lyrics-overlay-body">Hit play on any track to read along here.</div>
+    </div>
+
+    <div class="player-bar" role="region" aria-label="Audio player">
+        <div class="now-playing">
+            <img src="cover.png" class="bar-cover" alt="">
+            <div class="bar-meta">
+                <div class="bar-title">&mdash; select a track &mdash;</div>
+                <div class="bar-album">THE BRASS TAX</div>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="ctl prev" type="button" aria-label="Previous track">&#9198;</button>
+            <button class="ctl play" type="button" aria-label="Play / pause">&#9654;</button>
+            <button class="ctl next" type="button" aria-label="Next track">&#9197;</button>
+        </div>
+        <div class="progress-wrap">
+            <span class="bar-time-current">0:00</span>
+            <div class="progress" role="slider" aria-label="Seek"><div class="progress-fill"></div></div>
+            <span class="bar-time-total">--:--</span>
+        </div>
+        <button class="lyrics-toggle" type="button" aria-label="Show lyrics">Lyrics</button>
+        <audio id="audio" preload="metadata"></audio>
+    </div>
+
+    <script>
+        (function () {
+            const STORAGE_KEY = "wiseman-brass-tax-public-player";
+            const COUNT_API = "/api/plays";
+            const PLAY_THRESHOLD = 15;
+            const audio = document.getElementById("audio");
+            const tracks = Array.from(document.querySelectorAll(".track[data-src]"));
+
+            tracks.forEach((t, i) => {
+                t.dataset.trackNum = String(i + 1);
+            });
+
+            function setCount(num, n) {
+                const t = tracks.find(t => t.dataset.trackNum === String(num));
+                if (!t) return;
+                const el = t.querySelector(".play-count");
+                if (!el) return;
+                el.textContent = n.toLocaleString() + " play" + (n === 1 ? "" : "s");
+            }
+
+            function bumpCount(num) {
+                const t = tracks.find(t => t.dataset.trackNum === String(num));
+                const el = t && t.querySelector(".play-count");
+                if (!el) return;
+                el.classList.remove("is-bump");
+                void el.offsetWidth;
+                el.classList.add("is-bump");
+            }
+
+            async function loadCounts() {
+                try {
+                    const r = await fetch(COUNT_API, { headers: { "Accept": "application/json" } });
+                    if (!r.ok) return;
+                    const counts = await r.json();
+                    tracks.forEach(t => {
+                        const num = t.dataset.trackNum;
+                        const trackData = counts[num] || {};
+                        const plays = parseInt(trackData.plays || 0, 10);
+                        setCount(num, plays);
+                    });
+                } catch (_) { }
+            }
+
+            async function postPlay(num) {
+                try {
+                    const r = await fetch(COUNT_API + "?track=" + encodeURIComponent(num), { method: "POST" });
+                    if (!r.ok) return;
+                    const data = await r.json();
+                    setCount(num, data.count);
+                    bumpCount(num);
+                } catch (_) { }
+            }
+
+            async function postMilestone(num, milestone) {
+                try {
+                    await fetch(COUNT_API + "?track=" + encodeURIComponent(num) + "&milestone=" + milestone, { method: "POST" });
+                } catch (_) { }
+            }
+
+            let pendingCount = false;
+            let pendingMilestones = new Set();
+            let currentIndex = -1;
+            let lastSaved = 0;
+
+            function maybeMarkPlay() {
+                if (!pendingCount || currentIndex < 0) return;
+                if (audio.currentTime < PLAY_THRESHOLD) return;
+                pendingCount = false;
+                postPlay(tracks[currentIndex].dataset.trackNum);
+            }
+
+            function maybeMarkMilestones() {
+                if (currentIndex < 0 || !audio.duration || !isFinite(audio.duration)) return;
+                const ratio = audio.currentTime / audio.duration;
+                const num = tracks[currentIndex].dataset.trackNum;
+                if (pendingMilestones.has("p25") && ratio >= 0.25) {
+                    pendingMilestones.delete("p25");
+                    postMilestone(num, "p25");
+                    return;
+                }
+                if (pendingMilestones.has("p50") && ratio >= 0.5) {
+                    pendingMilestones.delete("p50");
+                    postMilestone(num, "p50");
+                    return;
+                }
+                if (pendingMilestones.has("p75") && ratio >= 0.75) {
+                    pendingMilestones.delete("p75");
+                    postMilestone(num, "p75");
+                }
+            }
+
+            const bar = {
+                title: document.querySelector(".bar-title"),
+                playBtn: document.querySelector(".ctl.play"),
+                prevBtn: document.querySelector(".ctl.prev"),
+                nextBtn: document.querySelector(".ctl.next"),
+                current: document.querySelector(".bar-time-current"),
+                total: document.querySelector(".bar-time-total"),
+                progress: document.querySelector(".progress"),
+                fill: document.querySelector(".progress-fill"),
+            };
+
+            const overlay = document.querySelector(".lyrics-overlay");
+            const overlayTitle = document.querySelector(".lyrics-overlay-title");
+            const overlayBody = document.querySelector(".lyrics-overlay-body");
+            const lyricsToggle = document.querySelector(".lyrics-toggle");
+            const lyricsClose = document.querySelector(".lyrics-close");
+
+            function setOverlayFor(track) {
+                if (!track) {
+                    overlayTitle.textContent = "— select a track —";
+                    overlayBody.textContent = "Hit play on any track to read along here.";
+                    overlayBody.scrollTop = 0;
+                    return;
+                }
+                overlayTitle.textContent = track.dataset.title;
+                const source = track.querySelector(".lyrics-body");
+                overlayBody.textContent = source ? source.textContent.trim() : "(no lyrics)";
+                overlayBody.scrollTop = 0;
+            }
+
+            function openOverlay() {
+                overlay.classList.add("open");
+                overlay.setAttribute("aria-hidden", "false");
+            }
+
+            function closeOverlay() {
+                overlay.classList.remove("open");
+                overlay.setAttribute("aria-hidden", "true");
+            }
+
+            function toggleOverlay() {
+                if (overlay.classList.contains("open")) closeOverlay();
+                else openOverlay();
+            }
+
+            lyricsToggle.addEventListener("click", toggleOverlay);
+            lyricsClose.addEventListener("click", closeOverlay);
+
+            function fmt(s) {
+                if (!isFinite(s) || s < 0) return "--:--";
+                s = Math.floor(s);
+                const m = Math.floor(s / 60);
+                const r = s % 60;
+                return m + ":" + String(r).padStart(2, "0");
+            }
+
+            function render() {
+                tracks.forEach((t, i) => {
+                    const active = i === currentIndex;
+                    t.classList.toggle("is-playing", active);
+                    const btn = t.querySelector(".play-btn");
+                    if (btn) btn.textContent = (active && !audio.paused) ? "PAUSE" : "PLAY";
+                });
+                bar.playBtn.innerHTML = audio.paused ? "&#9654;" : "&#10074;&#10074;";
+            }
+
+            function load(index, autoplay) {
+                if (index < 0 || index >= tracks.length) return;
+                currentIndex = index;
+                const t = tracks[index];
+                audio.src = t.dataset.src;
+                bar.title.textContent = t.dataset.title;
+                bar.total.textContent = "--:--";
+                bar.current.textContent = "0:00";
+                bar.fill.style.width = "0%";
+                if ("mediaSession" in navigator) {
+                    try {
+                        navigator.mediaSession.metadata = new MediaMetadata({
+                            title: t.dataset.title,
+                            artist: "The Brass Tax",
+                            album: "The Brass Tax",
+                            artwork: [
+                                { src: "cover.png", sizes: "1024x1024", type: "image/png" },
+                                { src: "icon-512.png", sizes: "512x512", type: "image/png" },
+                                { src: "icon-192.png", sizes: "192x192", type: "image/png" },
+                            ],
+                        });
+                    } catch (_) { }
+                }
+                if (autoplay) audio.play().catch(() => { });
+                setOverlayFor(t);
+                render();
+            }
+
+            function toggle() {
+                if (currentIndex < 0) { load(0, true); return; }
+                if (audio.paused) audio.play().catch(() => { });
+                else audio.pause();
+            }
+
+            function next() {
+                if (currentIndex < tracks.length - 1) load(currentIndex + 1, true);
+            }
+
+            function prev() {
+                if (audio.currentTime > 3 && currentIndex >= 0) {
+                    audio.currentTime = 0;
+                    return;
+                }
+                if (currentIndex > 0) load(currentIndex - 1, true);
+            }
+
+            function seek(delta) {
+                if (!audio.duration) return;
+                audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + delta));
+            }
+
+            tracks.forEach((t, i) => {
+                const btn = t.querySelector(".play-btn");
+                if (!btn) return;
+                btn.addEventListener("click", () => {
+                    if (i === currentIndex) toggle();
+                    else load(i, true);
+                });
+            });
+
+            bar.playBtn.addEventListener("click", toggle);
+            bar.prevBtn.addEventListener("click", prev);
+            bar.nextBtn.addEventListener("click", next);
+
+            bar.progress.addEventListener("click", (e) => {
+                if (!audio.duration) return;
+                const r = bar.progress.getBoundingClientRect();
+                const ratio = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+                audio.currentTime = ratio * audio.duration;
+            });
+
+            audio.addEventListener("timeupdate", () => {
+                bar.current.textContent = fmt(audio.currentTime);
+                if (audio.duration) {
+                    bar.fill.style.width = (100 * audio.currentTime / audio.duration) + "%";
+                }
+                if (audio.currentTime - lastSaved > 4) {
+                    lastSaved = audio.currentTime;
+                    saveState();
+                }
+                maybeMarkPlay();
+                maybeMarkMilestones();
+            });
+
+            audio.addEventListener("loadedmetadata", () => {
+                bar.total.textContent = fmt(audio.duration);
+                const t = tracks[currentIndex];
+                if (t) {
+                    const tt = t.querySelector(".track-time");
+                    if (tt) tt.textContent = fmt(audio.duration);
+                }
+            });
+
+            audio.addEventListener("play", () => {
+                if (audio.currentTime < 1) {
+                    pendingCount = true;
+                    pendingMilestones = new Set(["p25", "p50", "p75"]);
+                }
+                render();
+            });
+
+            audio.addEventListener("pause", () => { render(); saveState(); });
+
+            audio.addEventListener("ended", () => {
+                if (currentIndex >= 0) {
+                    postMilestone(tracks[currentIndex].dataset.trackNum, "complete");
+                }
+                if (currentIndex < tracks.length - 1) {
+                    load(currentIndex + 1, true);
+                    const card = tracks[currentIndex];
+                    if (card) card.scrollIntoView({ behavior: "smooth", block: "center" });
+                } else {
+                    render();
+                }
+            });
+
+            document.addEventListener("keydown", (e) => {
+                const tag = document.activeElement && document.activeElement.tagName;
+                if (e.key === "Escape" && overlay.classList.contains("open")) {
+                    e.preventDefault();
+                    closeOverlay();
+                    return;
+                }
+                if (tag === "INPUT" || tag === "TEXTAREA") return;
+                if (e.key === " " || e.code === "Space") {
+                    e.preventDefault();
+                    toggle();
+                } else if (e.key === "ArrowRight" && e.shiftKey) {
+                    e.preventDefault();
+                    next();
+                } else if (e.key === "ArrowLeft" && e.shiftKey) {
+                    e.preventDefault();
+                    prev();
+                } else if (e.key === "ArrowRight") {
+                    seek(5);
+                } else if (e.key === "ArrowLeft") {
+                    seek(-5);
+                }
+            });
+
+            if ("mediaSession" in navigator) {
+                try {
+                    navigator.mediaSession.setActionHandler("play", () => audio.play());
+                    navigator.mediaSession.setActionHandler("pause", () => audio.pause());
+                    navigator.mediaSession.setActionHandler("previoustrack", prev);
+                    navigator.mediaSession.setActionHandler("nexttrack", next);
+                    navigator.mediaSession.setActionHandler("seekbackward", () => seek(-10));
+                    navigator.mediaSession.setActionHandler("seekforward", () => seek(10));
+                } catch (_) { }
+            }
+
+            function saveState() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                        index: currentIndex,
+                        time: audio.currentTime || 0,
+                    }));
+                } catch (_) { }
+            }
+
+            function restoreState() {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    if (!raw) return;
+                    const s = JSON.parse(raw);
+                    if (typeof s.index !== "number" || s.index < 0 || s.index >= tracks.length) return;
+                    load(s.index, false);
+                    const resume = () => {
+                        if (s.time && audio.duration) {
+                            audio.currentTime = Math.min(s.time, audio.duration);
+                        }
+                        audio.removeEventListener("loadedmetadata", resume);
+                    };
+                    audio.addEventListener("loadedmetadata", resume);
+                } catch (_) { }
+            }
+
+            restoreState();
+            loadCounts();
+
+            // ===== PWA: service worker registration =====
+            let swReg = null;
+            if ("serviceWorker" in navigator) {
+                window.addEventListener("load", () => {
+                    navigator.serviceWorker.register("sw.js").then((reg) => {
+                        swReg = reg;
+                        refreshCachedStatus();
+                    }).catch(() => { });
+                });
+
+                navigator.serviceWorker.addEventListener("message", (event) => {
+                    const data = event.data || {};
+                    if (data.type === "cache-progress") {
+                        onCacheProgress(data.done, data.total);
+                    } else if (data.type === "cache-complete") {
+                        onCacheComplete(data.done, data.total);
+                    } else if (data.type === "cache-error") {
+                        console.warn("[sw] cache error", data);
+                    } else if (data.type === "cached-status") {
+                        renderCachedStatus(data.cached.length, data.total);
+                    }
+                });
+            }
+
+            // ===== Install prompt =====
+            const installBtn = document.getElementById("install-btn");
+            let deferredPrompt = null;
+
+            window.addEventListener("beforeinstallprompt", (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                installBtn.hidden = false;
+            });
+
+            installBtn.addEventListener("click", async () => {
+                if (!deferredPrompt) return;
+                deferredPrompt.prompt();
+                try { await deferredPrompt.userChoice; } catch (_) { }
+                deferredPrompt = null;
+                installBtn.hidden = true;
+            });
+
+            window.addEventListener("appinstalled", () => {
+                installBtn.hidden = true;
+                flashToast("> INSTALLED. WELCOME TO THE BRASS TAX.");
+            });
+
+            // ===== Take it offline =====
+            const cacheBtn = document.getElementById("cache-all-btn");
+            const cacheBar = document.getElementById("cache-progress");
+            const cacheBarFill = document.getElementById("cache-progress-bar");
+            const cacheBarLabel = document.getElementById("cache-progress-label");
+
+            function trackUrls() {
+                return tracks.map(t => new URL(t.dataset.src, location.href).href);
+            }
+
+            function refreshCachedStatus() {
+                if (!navigator.serviceWorker.controller) return;
+                navigator.serviceWorker.controller.postMessage({
+                    type: "check-cached",
+                    urls: trackUrls(),
+                });
+            }
+
+            function renderCachedStatus(cached, total) {
+                if (cached >= total && total > 0) {
+                    cacheBtn.innerHTML = "Offline &check; Ready<small>all " + total + " tracks cached on this device &mdash; tap to re-verify</small>";
+                } else if (cached > 0) {
+                    cacheBtn.innerHTML = "Finish Offline Download<small>" + cached + " of " + total + " tracks cached &mdash; tap to grab the rest</small>";
+                }
+            }
+
+            function onCacheProgress(done, total) {
+                cacheBar.hidden = false;
+                const pct = total ? Math.round(100 * done / total) : 0;
+                cacheBarFill.style.width = pct + "%";
+                cacheBarLabel.textContent = done + " / " + total + " tracks";
+            }
+
+            function onCacheComplete(done, total) {
+                cacheBtn.classList.remove("is-busy");
+                cacheBtn.disabled = false;
+                cacheBarFill.style.width = "100%";
+                cacheBarLabel.textContent = "done. " + done + " of " + total + " tracks cached.";
+                setTimeout(() => { cacheBar.hidden = true; }, 2200);
+                flashToast("> RECORD CACHED. PLAYS OFFLINE NOW.");
+                renderCachedStatus(done, total);
+            }
+
+            cacheBtn.addEventListener("click", async () => {
+                if (!("serviceWorker" in navigator)) {
+                    flashToast("> SERVICE WORKER NOT SUPPORTED");
+                    return;
+                }
+                let controller = navigator.serviceWorker.controller;
+                if (!controller) {
+                    try {
+                        const reg = await navigator.serviceWorker.ready;
+                        controller = reg.active;
+                    } catch (_) { }
+                }
+                if (!controller) {
+                    flashToast("> WORKER NOT READY YET — TRY AGAIN");
+                    return;
+                }
+                cacheBtn.classList.add("is-busy");
+                cacheBtn.disabled = true;
+                cacheBar.hidden = false;
+                cacheBarFill.style.width = "0%";
+                cacheBarLabel.textContent = "starting...";
+                controller.postMessage({
+                    type: "cache-tracks",
+                    urls: trackUrls(),
+                });
+            });
+
+            function flashToast(text) {
+                const toast = document.createElement("div");
+                toast.className = "easter-toast";
+                toast.textContent = text;
+                document.body.appendChild(toast);
+                requestAnimationFrame(() => toast.classList.add("show"));
+                setTimeout(() => {
+                    toast.classList.remove("show");
+                    setTimeout(() => toast.remove(), 400);
+                }, 1800);
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

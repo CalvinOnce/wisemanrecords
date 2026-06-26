@@ -1,0 +1,19 @@
+{
+  "name": "The Brass Tax",
+  "short_name": "Brass Tax",
+  "description": "The Brass Tax — full record, free forever. Install it. Take it offline. Not for sale, never was.",
+  "id": "/the-brass-tax/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5c742",
+  "theme_color": "#1a1a1a",
+  "categories": ["music", "entertainment"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
