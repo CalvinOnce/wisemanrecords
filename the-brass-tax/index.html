@@ -644,6 +644,33 @@
 
         .ctl:active { transform: translate(1px, 1px); }
 
+        /* Shuffle / repeat toggles */
+        .ctl.mode {
+            width: 38px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .ctl.mode svg {
+            width: 20px;
+            height: 20px;
+            display: block;
+        }
+
+        .ctl.mode .icon-one { display: none; }
+        .ctl.repeat.mode-one .icon-loop { display: none; }
+        .ctl.repeat.mode-one .icon-one { display: block; }
+
+        .ctl.mode.is-on {
+            background: var(--green);
+            box-shadow: inset 0 0 0 2px var(--ink);
+        }
+
+        .ctl.mode.is-on:hover { background: var(--yellow); }
+
         .progress-wrap {
             display: flex;
             align-items: center;
@@ -704,6 +731,12 @@
                 width: 42px;
                 height: 42px;
             }
+
+            .controls { gap: 5px; }
+            .ctl { width: 40px; }
+            .ctl.play { width: 52px; }
+            .ctl.mode { width: 36px; }
+            .ctl.mode svg { width: 18px; height: 18px; }
 
             .lyrics-toggle { justify-self: center; }
 
@@ -1629,9 +1662,33 @@ We're in for the long haul.</div>
             </div>
         </div>
         <div class="controls">
+            <button class="ctl mode shuffle" type="button" aria-label="Shuffle" aria-pressed="false" title="Shuffle (S)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 6h4l10 12h4" />
+                    <path d="M3 18h4l3-3.6" />
+                    <path d="M14 9.6 17 6h4" />
+                    <path d="m18 3 3 3-3 3" />
+                    <path d="m18 15 3 3-3 3" />
+                </svg>
+            </button>
             <button class="ctl prev" type="button" aria-label="Previous track">&#9198;</button>
             <button class="ctl play" type="button" aria-label="Play / pause">&#9654;</button>
             <button class="ctl next" type="button" aria-label="Next track">&#9197;</button>
+            <button class="ctl mode repeat" type="button" aria-label="Repeat: off" aria-pressed="false" title="Repeat (R)">
+                <svg class="icon-loop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 9V8a3 3 0 0 1 3-3h13" />
+                    <path d="m17 2 3 3-3 3" />
+                    <path d="M20 15v1a3 3 0 0 1-3 3H4" />
+                    <path d="m7 22-3-3 3-3" />
+                </svg>
+                <svg class="icon-one" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 9V8a3 3 0 0 1 3-3h13" />
+                    <path d="m17 2 3 3-3 3" />
+                    <path d="M20 15v1a3 3 0 0 1-3 3H4" />
+                    <path d="m7 22-3-3 3-3" />
+                    <path d="M10.4 10.9 12.4 9.5V15" />
+                </svg>
+            </button>
         </div>
         <div class="progress-wrap">
             <span class="bar-time-current">0:00</span>
@@ -1705,6 +1762,9 @@ We're in for the long haul.</div>
             let pendingMilestones = new Set();
             let currentIndex = -1;
             let lastSaved = 0;
+            let shuffleOn = false;
+            let repeatMode = "off"; // "off" | "all" | "one"
+            let shuffleOrder = [];
 
             function maybeMarkPlay() {
                 if (!pendingCount || currentIndex < 0) return;
@@ -1738,6 +1798,8 @@ We're in for the long haul.</div>
                 playBtn: document.querySelector(".ctl.play"),
                 prevBtn: document.querySelector(".ctl.prev"),
                 nextBtn: document.querySelector(".ctl.next"),
+                shuffleBtn: document.querySelector(".ctl.shuffle"),
+                repeatBtn: document.querySelector(".ctl.repeat"),
                 current: document.querySelector(".bar-time-current"),
                 total: document.querySelector(".bar-time-total"),
                 progress: document.querySelector(".progress"),
@@ -1833,8 +1895,55 @@ We're in for the long haul.</div>
                 else audio.pause();
             }
 
+            // ===== Shuffle / repeat =====
+            function buildShuffleOrder(firstIndex) {
+                shuffleOrder = tracks.map((_, i) => i);
+                for (let i = shuffleOrder.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffleOrder[i], shuffleOrder[j]] = [shuffleOrder[j], shuffleOrder[i]];
+                }
+                // Keep whatever is playing at the head of the deck so it isn't cut off.
+                if (firstIndex >= 0) {
+                    const at = shuffleOrder.indexOf(firstIndex);
+                    if (at > 0) {
+                        shuffleOrder.splice(at, 1);
+                        shuffleOrder.unshift(firstIndex);
+                    }
+                }
+            }
+
+            // Index that follows the current one, or -1 when the queue is done.
+            // dir is +1 (next) or -1 (previous).
+            function stepIndex(dir) {
+                const n = tracks.length;
+                if (!n) return -1;
+                const wrap = repeatMode !== "off";
+                if (shuffleOn) {
+                    if (shuffleOrder.length !== n) buildShuffleOrder(currentIndex);
+                    const pos = shuffleOrder.indexOf(currentIndex);
+                    if (pos === -1) return shuffleOrder[0];
+                    const at = pos + dir;
+                    if (at >= n) {
+                        if (!wrap) return -1;
+                        buildShuffleOrder(-1); // fresh deck for the next lap
+                        // Don't open the new lap with the track that just finished.
+                        if (n > 1 && shuffleOrder[0] === currentIndex) {
+                            [shuffleOrder[0], shuffleOrder[1]] = [shuffleOrder[1], shuffleOrder[0]];
+                        }
+                        return shuffleOrder[0];
+                    }
+                    if (at < 0) return wrap ? shuffleOrder[n - 1] : -1;
+                    return shuffleOrder[at];
+                }
+                const at = currentIndex + dir;
+                if (at >= n) return wrap ? 0 : -1;
+                if (at < 0) return wrap ? n - 1 : -1;
+                return at;
+            }
+
             function next() {
-                if (currentIndex < tracks.length - 1) load(currentIndex + 1, true);
+                const i = stepIndex(1);
+                if (i >= 0) load(i, true);
             }
 
             function prev() {
@@ -1842,7 +1951,39 @@ We're in for the long haul.</div>
                     audio.currentTime = 0;
                     return;
                 }
-                if (currentIndex > 0) load(currentIndex - 1, true);
+                const i = stepIndex(-1);
+                if (i >= 0) load(i, true);
+            }
+
+            function renderModes() {
+                bar.shuffleBtn.classList.toggle("is-on", shuffleOn);
+                bar.shuffleBtn.setAttribute("aria-pressed", String(shuffleOn));
+                bar.repeatBtn.classList.toggle("is-on", repeatMode !== "off");
+                bar.repeatBtn.classList.toggle("mode-one", repeatMode === "one");
+                bar.repeatBtn.setAttribute("aria-pressed", String(repeatMode !== "off"));
+                bar.repeatBtn.setAttribute("aria-label", "Repeat: " + (
+                    repeatMode === "one" ? "this track" : repeatMode === "all" ? "whole record" : "off"
+                ));
+            }
+
+            function toggleShuffle() {
+                shuffleOn = !shuffleOn;
+                if (shuffleOn) buildShuffleOrder(currentIndex);
+                else shuffleOrder = [];
+                renderModes();
+                saveState();
+                flashToast(shuffleOn ? "> SHUFFLE ON — DEALER'S CHOICE" : "> SHUFFLE OFF — BACK IN ORDER");
+            }
+
+            function cycleRepeat() {
+                repeatMode = repeatMode === "off" ? "all" : repeatMode === "all" ? "one" : "off";
+                renderModes();
+                saveState();
+                flashToast(
+                    repeatMode === "all" ? "> REPEAT: THE WHOLE RECORD" :
+                    repeatMode === "one" ? "> REPEAT: THIS ONE, FOREVER" :
+                    "> REPEAT OFF"
+                );
             }
 
             function seek(delta) {
@@ -1862,6 +2003,8 @@ We're in for the long haul.</div>
             bar.playBtn.addEventListener("click", toggle);
             bar.prevBtn.addEventListener("click", prev);
             bar.nextBtn.addEventListener("click", next);
+            bar.shuffleBtn.addEventListener("click", toggleShuffle);
+            bar.repeatBtn.addEventListener("click", cycleRepeat);
 
             bar.progress.addEventListener("click", (e) => {
                 if (!audio.duration) return;
@@ -1906,8 +2049,14 @@ We're in for the long haul.</div>
                 if (currentIndex >= 0) {
                     postMilestone(tracks[currentIndex].dataset.trackNum, "complete");
                 }
-                if (currentIndex < tracks.length - 1) {
-                    load(currentIndex + 1, true);
+                if (repeatMode === "one" && currentIndex >= 0) {
+                    audio.currentTime = 0;
+                    audio.play().catch(() => { });
+                    return;
+                }
+                const i = stepIndex(1);
+                if (i >= 0) {
+                    load(i, true);
                     const card = tracks[currentIndex];
                     if (card) card.scrollIntoView({ behavior: "smooth", block: "center" });
                 } else {
@@ -1923,6 +2072,7 @@ We're in for the long haul.</div>
                     return;
                 }
                 if (tag === "INPUT" || tag === "TEXTAREA") return;
+                if (e.metaKey || e.ctrlKey || e.altKey) return;
                 if (e.key === " " || e.code === "Space") {
                     e.preventDefault();
                     toggle();
@@ -1936,6 +2086,10 @@ We're in for the long haul.</div>
                     seek(5);
                 } else if (e.key === "ArrowLeft") {
                     seek(-5);
+                } else if (e.key === "s" || e.key === "S") {
+                    toggleShuffle();
+                } else if (e.key === "r" || e.key === "R") {
+                    cycleRepeat();
                 }
             });
 
@@ -1955,6 +2109,8 @@ We're in for the long haul.</div>
                     localStorage.setItem(STORAGE_KEY, JSON.stringify({
                         index: currentIndex,
                         time: audio.currentTime || 0,
+                        shuffle: shuffleOn,
+                        repeat: repeatMode,
                     }));
                 } catch (_) { }
             }
@@ -1964,8 +2120,12 @@ We're in for the long haul.</div>
                     const raw = localStorage.getItem(STORAGE_KEY);
                     if (!raw) return;
                     const s = JSON.parse(raw);
+                    if (s.repeat === "all" || s.repeat === "one") repeatMode = s.repeat;
+                    if (s.shuffle === true) shuffleOn = true;
+                    renderModes();
                     if (typeof s.index !== "number" || s.index < 0 || s.index >= tracks.length) return;
                     load(s.index, false);
+                    if (shuffleOn) buildShuffleOrder(s.index);
                     const resume = () => {
                         if (s.time && audio.duration) {
                             audio.currentTime = Math.min(s.time, audio.duration);
@@ -1977,6 +2137,7 @@ We're in for the long haul.</div>
             }
 
             restoreState();
+            renderModes();
             loadCounts();
 
             // ===== PWA: service worker registration =====

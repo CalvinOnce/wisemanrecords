@@ -1,7 +1,7 @@
 // Service worker for The Brass Tax PWA.
 // Two caches: SHELL (versioned, blown away on deploy) and AUDIO (durable across deploys).
 
-const SHELL_VERSION = "v1";
+const SHELL_VERSION = "v2";
 const SHELL_CACHE = `brass-tax-shell-${SHELL_VERSION}`;
 const AUDIO_CACHE = "brass-tax-audio";
 
